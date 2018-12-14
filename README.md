@@ -1,3 +1,16 @@
+## remarks. todo: write about app
+
+using api-doc
+using helmet
+
+describe  access to /apidocs 
+
+
+
+
+
+
+
 # Stolen Bike Cases - JOIN Coding Challenge - Backend (Node.js)
 
 ## The context
