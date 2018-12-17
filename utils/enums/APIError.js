@@ -110,7 +110,7 @@ class APIError extends ExtendableError {
   }
 }
 
-module.exports = {
+export {
   APIError,
   generateError
 };

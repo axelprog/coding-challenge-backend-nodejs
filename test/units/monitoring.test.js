@@ -1,11 +1,11 @@
-const httpStatus = require('http-status');
-const request = require('supertest');
-const express = require('express');
-const middleware = require('../../utils/middlewares/monitoring.middleware');
+import httpStatus from 'http-status';
+import request from 'supertest';
+import express from 'express';
+import middleware from '../../utils/middlewares/monitoring.middleware';
+
+import { logger } from '../../utils/logger';
 
 jest.mock('../../utils/logger');
-const { logger } = require('../../utils/logger');
-
 
 describe('Middleware - monitoringMiddleware', () => {
   let app;

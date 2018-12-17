@@ -60,13 +60,16 @@ const convertValidationError = (err, req) => {
     ));
   });
 
-  return new APIError({
+  const qwe =
+  new APIError({
     message: 'Validation error',
     errors: formattedErrors,
     route: err.route ? err.route : routes.root,
     status: err.status,
     stack: err.stack
   });
+
+  return qwe;
 };
 
 exports.convertValidationError = convertValidationError;
