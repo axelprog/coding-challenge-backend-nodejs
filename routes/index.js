@@ -1,12 +1,14 @@
-import express from 'express';
+const express = require('express');
+
+const {wrapSuccessResponse} = require('../utils/ResponseWrapper');
 
 const router = express.Router();
 
 /* GET index page. */
 router.get('/', (req, res) => {
-  res.json({
+  res.json(wrapSuccessResponse({
     title: 'Express'
-  });
+  }));
 });
 
-export default router;
+module.exports = router;

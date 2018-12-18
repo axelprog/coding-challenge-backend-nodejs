@@ -23,4 +23,4 @@ sequelize
   });
 
 
-export default sequelize;
+module.exports = sequelize;

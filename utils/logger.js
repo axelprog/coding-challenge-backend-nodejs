@@ -1,6 +1,7 @@
-import winston from 'winston';
-import sanitizer from 'node-sanitizer';
-
+const winston = require('winston');
+const sanitizer = require('node-sanitizer');
+// Uncomment the following line if you use elastic APM
+// const apm = require('elastic-apm-node');
 
 const serviceName = 'StolenBikes'; // TODO: add to env and rewrite this logger
 const sanitizedFields = null;

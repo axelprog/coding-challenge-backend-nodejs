@@ -1,14 +1,14 @@
-import httpStatus from 'http-status';
-import expressValidation from 'express-validation';
-import _ from 'lodash';
+const httpStatus = require('http-status');
+const expressValidation = require('express-validation');
+const _ = require('lodash');
 
-import { APIError, generateError } from '../enums/APIError';
-import {
+const { APIError, generateError } = require('../../utils/enums/APIError');
+const {
   getErrorCode,
   routes,
   services,
   codes
-} from '../enums/ErrorCode';
+} = require('../../utils/enums/ErrorCode');
 
 /**
  * Error handler. Send stacktrace only during development
@@ -50,9 +50,7 @@ const convertValidationError = (err, req) => {
   const formattedErrors = [];
   err.errors.forEach((error) => {
     formattedErrors.push(generateError(
-      [req.path.replace('/', '')
-        .split('/')
-        .join(':'), codes.validationError].join(':'),
+      [req.path.replace('/', '').split('/').join(':'), codes.validationError].join(':'),
       'We seems to have a problem!',
       'We have some trouble validating your data - please contact our customer support',
       error.messages[0],
@@ -60,16 +58,13 @@ const convertValidationError = (err, req) => {
     ));
   });
 
-  const qwe =
-  new APIError({
+  return new APIError({
     message: 'Validation error',
     errors: formattedErrors,
     route: err.route ? err.route : routes.root,
     status: err.status,
     stack: err.stack
   });
-
-  return qwe;
 };
 
 exports.convertValidationError = convertValidationError;
@@ -79,13 +74,11 @@ exports.convertValidationError = convertValidationError;
  *
  * @param  {Object} err   Error object
  * @param  {Object} req   Request object
- * @public
+ * @oublic
  */
 const convertGenericError = (err, req) => {
   const wrappedError = generateError(
-    err.code || [req.path.replace('/', '')
-      .split('/')
-      .join(':'), codes.unknown].join(':'),
+    err.code || [req.path.replace('/', '').split('/').join(':'), codes.unknown].join(':'),
     'We seems to have a problem!',
     'Our internal system is having problem, please contact our administrator!',
     err.message, []

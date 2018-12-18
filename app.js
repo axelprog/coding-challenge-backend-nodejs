@@ -1,18 +1,18 @@
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import Debug from 'debug';
-import express from 'express';
-import path from 'path';
-import helmet from 'helmet';
-import cors from 'cors';
-import interceptor from 'express-interceptor';
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const Debug = require('debug');
+const express = require('express');
+const path = require('path');
+const helmet = require('helmet');
+const cors = require('cors');
+const interceptor = require('express-interceptor');
 
-// import favicon from 'serve-favicon';
+// const favicon = require( 'serve-favicon';
 
-import index from './routes/index';
-import dbConnector from './database/connector';
-import middlewareMonitoring from './utils/middlewares/monitoring.middleware';
-import errorMiddleware from './utils/middlewares/error.middleware';
+const index = require('./routes/index');
+const dbConnector = require('./database/connector');
+const middlewareMonitoring = require('./utils/middlewares/monitoring.middleware');
+const errorMiddleware = require('./utils/middlewares/error.middleware');
 
 const app = express();
 const debug = Debug('q:app');
@@ -60,7 +60,6 @@ app.use(finalParagraphInterceptor);
 app.use('/', index);
 
 
-
 // if error is not an instanceOf APIError, convert it.
 app.use(errorMiddleware.converter);
 
@@ -76,4 +75,4 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-export default app;
+module.exports = app;

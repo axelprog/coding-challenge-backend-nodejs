@@ -1,9 +1,9 @@
-import httpStatus from 'http-status';
-import request from 'supertest';
-import express from 'express';
-import middleware from '../../utils/middlewares/monitoring.middleware';
+const httpStatus = require('http-status');
+const request = require('supertest');
+const express = require('express');
+const middleware = require('../../utils/middlewares/monitoring.middleware');
 
-import { logger } from '../../utils/logger';
+const { logger } = require('../../utils/logger');
 
 jest.mock('../../utils/logger');
 
@@ -14,7 +14,8 @@ describe('Middleware - monitoringMiddleware', () => {
     app = express();
   });
 
-  afterEach(() => {});
+  afterEach(() => {
+  });
 
   test('should pass request', () => {
     app.use((req, res, next) => {
@@ -30,7 +31,8 @@ describe('Middleware - monitoringMiddleware', () => {
     app.use('/', router);
 
     router.get('/health', (req, res) => {
-      res.status(200).send('OK');
+      res.status(200)
+        .send('OK');
     });
 
     return request(app)
@@ -38,7 +40,8 @@ describe('Middleware - monitoringMiddleware', () => {
       .set('useragent', 'Something')
       .expect(httpStatus.OK)
       .then(() => {
-        expect(logger.info).toBeCalledTimes(1);
+        expect(logger.info)
+          .toBeCalledTimes(1);
       });
   });
 });

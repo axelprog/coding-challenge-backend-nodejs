@@ -25,8 +25,8 @@ const generateError = (errCode, errTitle, errDesc, errDebugDesc, errAttributes) 
  */
 class ExtendableError extends Error {
   constructor({
-    message, errors, route, status, isPublic, stack
-  }) {
+                message, errors, route, status, isPublic, stack
+              }) {
     super(message);
     this.name = this.constructor.name;
     this.message = message || 'Oops! Something is wrong';
@@ -52,13 +52,13 @@ class APIError extends ExtendableError {
    * @param {boolean} isPublic - Whether the message should be visible to user or not.
    */
   constructor({
-    message,
-    errors,
-    route = routes.root,
-    stack,
-    status = httpStatus.INTERNAL_SERVER_ERROR,
-    isPublic = false
-  }) {
+                message,
+                errors,
+                route = routes.root,
+                stack,
+                status = httpStatus.INTERNAL_SERVER_ERROR,
+                isPublic = false
+              }) {
     super({
       message, errors, route, status, isPublic, stack
     });
@@ -110,7 +110,7 @@ class APIError extends ExtendableError {
   }
 }
 
-export {
+module.exports = {
   APIError,
   generateError
 };
