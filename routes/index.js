@@ -1,6 +1,6 @@
 const express = require('express');
 
-const {wrapSuccessResponse} = require('../utils/ResponseWrapper');
+const { wrapSuccessResponse } = require('../utils/ResponseWrapper');
 
 const router = express.Router();
 

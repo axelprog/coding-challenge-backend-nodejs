@@ -1,8 +1,11 @@
 const responseTime = require('response-time');
+const config = require('config');
+
 const { logger } = require('../../utils/logger');
 
-const serviceName = 'StolenBikes'; // TODO: add to env and rewrite this logger
-const pjsonversion = '0.0.1'; // TODO: add to env and rewrite this logger
+const serviceName = config.get('info.name');
+
+const pjsonversion = config.get('info.version');
 
 const monitoringMiddleware = responseTime((req, res, time) => {
   const now = Date.now();

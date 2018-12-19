@@ -1,4 +1,6 @@
-const serviceName = 'StolenBikes'; // TODO: add to env and rewrite this logger
+const config = require('config');
+
+const serviceName = config.get('info.name');
 
 exports.routes = {
   root: 'default'
