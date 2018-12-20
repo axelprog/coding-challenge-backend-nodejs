@@ -16,7 +16,7 @@ const middlewareMonitoring = require('./utils/middlewares/monitoring.middleware'
 const errorMiddleware = require('./utils/middlewares/error.middleware');
 
 const app = express();
-const debug = Debug('q:app');
+const debug = Debug('stolenBikes:app');
 
 
 // uncomment after placing your favicon in /public

@@ -7,6 +7,6 @@ describe('Database initialization', () => {
 
   test('Should initialize DB connection', async () => {
     expect.assertions(1);
-    await expect(dbConnector.authenticate()).resolves.toBeUndefined();
+    await expect(dbConnector.sequelize.authenticate()).resolves.toBeUndefined();
   });
 });

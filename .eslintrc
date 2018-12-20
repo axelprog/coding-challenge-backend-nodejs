@@ -11,9 +11,14 @@
     "ecmaVersion": 2018
   },
   "rules": {
-    "comma-dangle": 0,
+    "comma-dangle": "off",
     "no-console": "off",
-    "quotes": ["error",
+    "func-names": [
+      "warn",
+      "as-needed"
+    ],
+    "quotes": [
+      "error",
       "single",
       {
         "avoidEscape": true,

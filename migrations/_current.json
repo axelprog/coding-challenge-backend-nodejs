@@ -1,0 +1,138 @@
+{
+    "tables": {
+        "Bikes": {
+            "tableName": "Bikes",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "license": {
+                    "seqType": "Sequelize.STRING"
+                },
+                "color": {
+                    "seqType": "Sequelize.STRING"
+                },
+                "type": {
+                    "seqType": "Sequelize.STRING"
+                },
+                "stealDate": {
+                    "seqType": "Sequelize.DATE"
+                },
+                "theefDescription": {
+                    "seqType": "Sequelize.TEXT"
+                },
+                "found": {
+                    "defaultValue": {
+                        "value": false
+                    },
+                    "allowNull": false,
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "owner": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "handle": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "Departments": {
+            "tableName": "Departments",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "name": {
+                    "seqType": "Sequelize.STRING"
+                },
+                "description": {
+                    "seqType": "Sequelize.TEXT"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "Users": {
+            "tableName": "Users",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "firstName": {
+                    "seqType": "Sequelize.STRING"
+                },
+                "lastName": {
+                    "seqType": "Sequelize.STRING"
+                },
+                "email": {
+                    "seqType": "Sequelize.STRING"
+                },
+                "password": {
+                    "seqType": "Sequelize.STRING"
+                },
+                "role": {
+                    "seqType": "Sequelize.ENUM('admin', 'manager', 'police', 'user')"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "seqType": "Sequelize.DATE"
+                },
+                "department": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "Departments",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "revision": 1
+}

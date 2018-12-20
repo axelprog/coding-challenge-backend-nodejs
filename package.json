@@ -14,12 +14,19 @@
     "docs": "apidoc -i controllers/ -o apidoc/",
     "lint": "eslint **/*.js --ignore-path .gitignore --ignore-pattern node_modules/* --ignore-pattern apidoc/*",
     "lint:fix": "npm run lint -- --fix",
-    "lint:watch": "npm run lint -- --watch"
+    "lint:watch": "npm run lint -- --watch",
+    "db:init": "sequelize db:create && npm run db:migrate",
+    "db:migrate": "sequelize db:migrate",
+    "db:model_generate": "sequelize model:generate",
+    "db:seeds_generate": "sequelize seed:generate",
+    "db:migration_generate": "node ./node_modules/sequelize-auto-migrations/bin/makemigration --name models_migration",
+    "db:migration_run": "node ./node_modules/sequelize-auto-migrations/bin/runmigration"
   },
   "dependencies": {
     "apidoc": "^0.17.7",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
+    "body-parser": "latest",
     "config": "^3.0.1",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
@@ -35,6 +42,8 @@
     "node-sanitizer": "^1.0.5",
     "response-time": "^2.3.2",
     "sequelize": "^4.42.0",
+    "sequelize-auto-migrations": "^1.0.2",
+    "sequelize-cli": "^5.4.0",
     "serve-favicon": "^2.4.3",
     "winston": "^3.1.0"
   },
