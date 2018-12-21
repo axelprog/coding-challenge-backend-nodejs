@@ -20,7 +20,7 @@ module.exports = {
       stealDate: {
         type: Sequelize.DATE
       },
-      theefDescription: {
+      thiefDescription: {
         type: Sequelize.TEXT
       },
       createdAt: {

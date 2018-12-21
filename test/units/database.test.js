@@ -1,4 +1,4 @@
-const dbConnector = require('../../database/connector');
+const dbConnector = require('../../models');
 
 describe('Database initialization', () => {
   beforeEach(() => {});

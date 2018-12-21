@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     color: DataTypes.STRING,
     type: DataTypes.STRING,
     stealDate: DataTypes.DATE,
-    theefDescription: DataTypes.TEXT,
+    thiefDescription: DataTypes.TEXT,
     found: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
   }, {});
   Bike.associate = function(models) {

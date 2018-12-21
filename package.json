@@ -16,11 +16,10 @@
     "lint:fix": "npm run lint -- --fix",
     "lint:watch": "npm run lint -- --watch",
     "db:init": "sequelize db:create && npm run db:migrate",
-    "db:migrate": "sequelize db:migrate",
     "db:model_generate": "sequelize model:generate",
     "db:seeds_generate": "sequelize seed:generate",
-    "db:migration_generate": "node ./node_modules/sequelize-auto-migrations/bin/makemigration --name models_migration",
-    "db:migration_run": "node ./node_modules/sequelize-auto-migrations/bin/runmigration"
+    "db:migration:generate": "cross-env PWD=%cd% node ./node_modules/sequelize-auto-migrations/bin/makemigration --name models_migration",
+    "db:migration:run": "cross-env PWD=%cd% node ./node_modules/sequelize-auto-migrations/bin/runmigration"
   },
   "dependencies": {
     "apidoc": "^0.17.7",

@@ -11,7 +11,7 @@ const interceptor = require('express-interceptor');
 // const favicon = require( 'serve-favicon';
 
 const index = require('./routes/index');
-const dbConnector = require('./database/connector');
+const dbConnector = require('./models');
 const middlewareMonitoring = require('./utils/middlewares/monitoring.middleware');
 const errorMiddleware = require('./utils/middlewares/error.middleware');
 

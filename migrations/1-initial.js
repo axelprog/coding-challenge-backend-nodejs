@@ -118,7 +118,7 @@ var migrationCommands = [{
                 "stealDate": {
                     "type": Sequelize.DATE
                 },
-                "theefDescription": {
+                "thiefDescription": {
                     "type": Sequelize.TEXT
                 },
                 "found": {

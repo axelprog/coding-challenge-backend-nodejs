@@ -21,7 +21,7 @@
                 "stealDate": {
                     "seqType": "Sequelize.DATE"
                 },
-                "thiefDescription": {
+                "theefDescription": {
                     "seqType": "Sequelize.TEXT"
                 },
                 "found": {
@@ -134,5 +134,5 @@
             "indexes": []
         }
     },
-    "revision": 2
+    "revision": 1
 }
