@@ -1,26 +1,20 @@
 const httpStatus = require('http-status');
 
 /**
- * @apiDefine Bike
- * @apiParam (Request body) {String} license
- * @apiParam (Request body) {String} color
- * @apiParam (Request body) {String} type
- * @apiParam (Request body) {Date} stealDate
- * @apiParam (Request body) {String} [thiefDescription]
- * @apiParam (Request body) {Boolean} [found]
-
+ * @apiDefine Department
+ * @apiParam (Request body) {String} name
+ * @apiParam (Request body) {String} description
  */
 
-
 /**
- * @api {post} api/v1/bikes Create
- * @apiDescription Create new record about stolen bike
+ * @api {post} api/v1/departments Create
+ * @apiDescription Create new department
  * @apiVersion 1.0.0
- * @apiName create bike
- * @apiGroup Bikes
+ * @apiName create department
+ * @apiGroup Departments
  * @apiPermission public
  *
- * @apiUse Bike
+ * @apiUse Department
  *
  * @apiSuccess {Number} responseCode     HTTP Response Code
  * @apiSuccess {String} responseMessage  Response message
@@ -29,7 +23,7 @@ const httpStatus = require('http-status');
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
 
-exports.bikeCreate = async (req, res, next) => {
+exports.departmentCreate = async (req, res, next) => {
   try {
     res.status(httpStatus.OK);
     return res.json({
@@ -43,11 +37,11 @@ exports.bikeCreate = async (req, res, next) => {
 };
 
 /**
- * @api {get} api/v1/bikes/:id Get
- * @apiDescription Get an exist record about stolen bike by id
+ * @api {get} api/v1/departments/:id Get
+ * @apiDescription Get an exist department by id
  * @apiVersion 1.0.0
- * @apiName get bike data
- * @apiGroup Bikes
+ * @apiName get department data
+ * @apiGroup Departments
  * @apiPermission public
  *
  * @apiParam {Number} id
@@ -59,7 +53,7 @@ exports.bikeCreate = async (req, res, next) => {
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
 
-exports.bikeGet = async (req, res, next) => {
+exports.departmentGet = async (req, res, next) => {
   try {
     res.status(httpStatus.OK);
     return res.json({
@@ -73,14 +67,14 @@ exports.bikeGet = async (req, res, next) => {
 };
 
 /**
- * @api {put} api/v1/bikes/:id Update
- * @apiDescription Update an exist record about stolen bike
+ * @api {put} api/v1/departments/:id Update
+ * @apiDescription Update an exist department data
  * @apiVersion 1.0.0
- * @apiName update bike
- * @apiGroup Bikes
+ * @apiName update department
+ * @apiGroup Departments
  * @apiPermission public
  *
- * @apiUse Bike
+ * @apiUse Department
  *
  * @apiSuccess {Number} responseCode     HTTP Response Code
  * @apiSuccess {String} responseMessage  Response message
@@ -89,7 +83,7 @@ exports.bikeGet = async (req, res, next) => {
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
 
-exports.bikeUpdate = async (req, res, next) => {
+exports.departmentUpdate = async (req, res, next) => {
   try {
     res.status(httpStatus.OK);
     return res.json({
@@ -103,11 +97,11 @@ exports.bikeUpdate = async (req, res, next) => {
 };
 
 /**
- * @api {delete} api/v1/bikes/:id Delete
- * @apiDescription Delete an exist record about stolen bike by bike id
+ * @api {delete} api/v1/departments/:id Delete
+ * @apiDescription Delete an exist department by id
  * @apiVersion 1.0.0
- * @apiName delete bike
- * @apiGroup Bikes
+ * @apiName delete department
+ * @apiGroup Departments
  * @apiPermission public
  *
  * @apiParam {Number} id
@@ -119,7 +113,7 @@ exports.bikeUpdate = async (req, res, next) => {
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
 
-exports.bikeDelete = async (req, res, next) => {
+exports.departmentDelete = async (req, res, next) => {
   try {
     res.status(httpStatus.OK);
     return res.json({
