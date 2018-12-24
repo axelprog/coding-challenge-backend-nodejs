@@ -121,12 +121,13 @@ describe('Department routes ', () => {
         .send(body)
         .expect(httpStatus.OK)
         .then((res) => {
-          // TODO: fill after done DB integration
+          expect(res.body.response.department).toMatchObject(body);
+          expect(typeof res.body.response.department.id).toBe('number');
         });
     });
 
     test('it should return department', () => {
-      const id = '123';
+      const id = 123;
 
       return request(app)
         .get(`${apiPath}/${id}`)

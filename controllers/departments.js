@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 
-const Department = require('../models/department');
+const Department = require('../models/').Department;
 
 /**
  * @apiDefine Department
@@ -27,13 +27,15 @@ const Department = require('../models/department');
 
 exports.departmentCreate = async (req, res, next) => {
   try {
-
-    res.status(httpStatus.OK);
-    return res.json({
-      responseCode: httpStatus.OK,
-      responseMessage: 'OK',
-      response: {}
-    });
+    return Department.create(req.body)
+      .then((userInstance) => {
+        res.status(httpStatus.OK);
+        return res.json({
+          responseCode: httpStatus.OK,
+          responseMessage: 'OK',
+          response: { department: userInstance.toJSON() }
+        });
+      }).catch((error) => next(error));
   } catch (error) {
     return next(error);
   }

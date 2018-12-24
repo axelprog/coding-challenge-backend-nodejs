@@ -9,6 +9,7 @@
   "scripts": {
     "prestart": "npm run docs",
     "start": "node ./bin/start",
+    "pretest": "cross-env NODE_ENV=test npm run db:migration:run",
     "test": "cross-env NODE_ENV=test jest --forceExit --detectOpenHandles",
     "test:coverage": "cross-env NODE_ENV=test jest --testPathPattern=' --forceExit --detectOpenHandles --coverage --coverageDirectory=coverage",
     "docs": "apidoc -i controllers/ -o apidoc/",
