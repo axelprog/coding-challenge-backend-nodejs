@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-// POST api/v1/bikes
+// POST api/v1/departments
 exports.departmentCreate = {
   body: {
     name: Joi.string().required(),

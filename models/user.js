@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    role: DataTypes.ENUM('admin', 'manager', 'police', 'user')
+    role: DataTypes.ENUM('admin', 'manager', 'police', 'user') // left so that simplify migration generation
   }, {});
   User.associate = function(models) {
     User.hasMany(models.Bike, { foreignKey: 'owner', as: 'stolenBikes' });

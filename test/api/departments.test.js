@@ -138,12 +138,8 @@ describe('Department routes ', () => {
 
     test('it should update department', () => {
       body = {
-        name: 'NYC Police',
-        description: 'first edit',
-        type: 'star',
-        stealDate: '2018-11-22',
-        thiefDescription: 'old man',
-        found: false
+        name: 'NYCPolice',
+        description: 'base police department'
       };
 
       const id = '123';
