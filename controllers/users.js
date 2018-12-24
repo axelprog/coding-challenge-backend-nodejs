@@ -2,11 +2,11 @@ const httpStatus = require('http-status');
 
 /**
  * @apiDefine User
- * @apiParam (Request body) {String} firstName
- * @apiParam (Request body) {String} lastName
- * @apiParam (Request body) {String} email
- * @apiParam (Request body) {String} password
- * @apiParam (Request body) {String="admin","manager","police","user"} role
+ * @apiParam (Request body) {String} firstName User first name
+ * @apiParam (Request body) {String} lastName User last naem
+ * @apiParam (Request body) {String} email User email for login
+ * @apiParam (Request body) {String} password User password
+ * @apiParam (Request body) {String="admin","manager","police","user"} role Possible user roles
  */
 
 /**

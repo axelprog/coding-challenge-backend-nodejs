@@ -2,12 +2,12 @@ const httpStatus = require('http-status');
 
 /**
  * @apiDefine Bike
- * @apiParam (Request body) {String} license
- * @apiParam (Request body) {String} color
- * @apiParam (Request body) {String} type
- * @apiParam (Request body) {Date} stealDate
- * @apiParam (Request body) {String} [thiefDescription]
- * @apiParam (Request body) {Boolean} [found]
+ * @apiParam (Request body) {String} license Bike license
+ * @apiParam (Request body) {String} color Bike color
+ * @apiParam (Request body) {String} type Bike type
+ * @apiParam (Request body) {Date} stealDate Date of bike stolen
+ * @apiParam (Request body) {String} [thiefDescription] Description of thief
+ * @apiParam (Request body) {Boolean} [found] Flag of found bike
 
  */
 
