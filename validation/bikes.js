@@ -21,6 +21,9 @@ exports.bikeGet = {
 
 // PUT api/v1/bikes/:id
 exports.bikeUpdate = {
+  params: {
+    id: Joi.number().integer().required()
+  },
   body: {
     license: Joi.string(),
     color: Joi.string(),

@@ -12,6 +12,6 @@ router.route('/')
 router.route('/:id')
   .get(validate(validation.bikeGet), controller.bikeGet)
   .put(validate(validation.bikeUpdate), controller.bikeUpdate)
-  .post(validate(validation.bikeDelete), controller.bikeDelete);
+  .delete(validate(validation.bikeDelete), controller.bikeDelete);
 
 module.exports = router;

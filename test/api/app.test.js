@@ -14,7 +14,6 @@ describe('app index route', () => {
   test('it should GET /', () => {
     return request(app)
       .get('/')
-      .send(body)
       .expect(httpStatus.OK)
       .then((res) => {
         expect(res.body).toHaveProperty('responseCode');
@@ -27,7 +26,6 @@ describe('app index route', () => {
   test('it should get /api-docs', () => {
     return request(app)
       .get('/api-docs/')
-      .send(body)
       .expect(httpStatus.OK)
       .then((res) => {
         expect(res.text).toEqual(expect.stringContaining('<html>'));
@@ -37,7 +35,6 @@ describe('app index route', () => {
   test('it should handle 404 error', () => {
     return request(app)
       .post('/')
-      .send(body)
       .expect(httpStatus.NOT_FOUND)
       .then((res) => {
         expect(res.body).toHaveProperty('responseCode');

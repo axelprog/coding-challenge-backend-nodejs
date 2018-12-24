@@ -2,8 +2,8 @@ const httpStatus = require('http-status');
 
 
 /**
- * @api {post} api/v1/bikes Create new record about stolen bike
- * @apiDescription stolen bikes CRUD
+ * @api {post} api/v1/bikes Create record
+ * @apiDescription Create new record about stolen bike
  * @apiVersion 1.0.0
  * @apiName create bike
  * @apiGroup Bikes
@@ -37,8 +37,8 @@ exports.bikeCreate = async (req, res, next) => {
 };
 
 /**
- * @api {get} api/v1/bikes/:id Get an exist record about stolen bike by id
- * @apiDescription stolen bikes CRUD
+ * @api {get} api/v1/bikes/:id Get record
+ * @apiDescription Get an exist record about stolen bike by id
  * @apiVersion 1.0.0
  * @apiName get bike data
  * @apiGroup Bikes
@@ -67,8 +67,8 @@ exports.bikeGet = async (req, res, next) => {
 };
 
 /**
- * @api {put} api/v1/bikes/:id Update an exist record about stolen bike
- * @apiDescription stolen bikes CRUD
+ * @api {put} api/v1/bikes/:id Update record
+ * @apiDescription Update an exist record about stolen bike
  * @apiVersion 1.0.0
  * @apiName update bike
  * @apiGroup Bikes
@@ -102,8 +102,8 @@ exports.bikeUpdate = async (req, res, next) => {
 };
 
 /**
- * @api {delete} api/v1/bikes/:id Delete an exist record about stolen bike
- * @apiDescription stolen bikes CRUD
+ * @api {delete} api/v1/bikes/:id Delete record
+ * @apiDescription Delete an exist record about stolen bike by bike id
  * @apiVersion 1.0.0
  * @apiName delete bike
  * @apiGroup Bikes

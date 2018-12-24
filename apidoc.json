@@ -1,8 +1,7 @@
 {
-  "name": "StolenBikes API documentation",
+  "name": "StolenBikes",
   "version": "1.0.0",
-  "description": "API documentation ",
-  "sampleUrl": "../",
+  "description": "StolenBikes API documentation ",
   "template": {
     "forceLanguage": "en"
   }
