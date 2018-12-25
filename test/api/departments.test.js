@@ -18,7 +18,7 @@ describe('Department routes ', () => {
     body = {};
   });
 
-  // afterAll(() => cleanDatabase());
+  afterAll(() => cleanDatabase());
 
 
   test('it should create department', () => {

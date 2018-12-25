@@ -27,14 +27,15 @@ exports.initDatabase = () => Promise.all([
     const users = await User.findAll();
     const bikes = await Bike.findAll();
 
-    departments[2].setEmployer(users[2]);
-    departments[2].setEmployer(users[3]);
+    return Promise.all([
+      departments[2].setEmployer([users[2], users[3]]),
 
-    users[2].setStolenBikes([bikes[0]], bikes[1]);
-    users[4].setStolenBikes([bikes[2]], bikes[3]);
+      users[2].setStolenBikes([bikes[0]], bikes[1]),
+      users[4].setStolenBikes([bikes[2]], bikes[3]),
 
-    users[2].setSeekBike(bikes[0]);
-    users[3].setSeekBike(bikes[1]);
+      users[2].setSeekBike(bikes[0]),
+      users[3].setSeekBike(bikes[1])
+    ]);
   });
 
 
