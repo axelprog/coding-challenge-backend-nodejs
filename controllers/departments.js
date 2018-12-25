@@ -61,7 +61,7 @@ exports.departmentCreate = async (req, res, next) => {
 
 exports.departmentGet = async (req, res, next) => {
   try {
-    return Department.findById(req.params.id)
+    return Department.findOne({ where: { id: req.params.id } })
       .then((departmentInstance) => {
         res.status(httpStatus.OK);
         return res.json({
@@ -95,7 +95,7 @@ exports.departmentGet = async (req, res, next) => {
 
 exports.departmentUpdate = async (req, res, next) => {
   try {
-    return Department.findById(req.params.id)
+    return Department.findOne({ where: { id: req.params.id } })
       .then((departmentInstance => departmentInstance.update(req.body)))
       .then((updatedInstance) => {
         res.status(httpStatus.OK);
