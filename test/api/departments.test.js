@@ -32,10 +32,8 @@ describe('Department routes ', () => {
       .send(body)
       .expect(httpStatus.CREATED)
       .then((res) => {
-        expect(res.body.response.department)
-          .toMatchObject(body);
-        expect(typeof res.body.response.department.id)
-          .toBe('number');
+        expect(res.body.response.department).toMatchObject(body);
+        expect(typeof res.body.response.department.id).toBe('number');
       });
   });
 
@@ -46,7 +44,8 @@ describe('Department routes ', () => {
       .get(`${apiPath}/${id}`)
       .expect(httpStatus.OK)
       .then((res) => {
-        // TODO: fill after done DB integration
+        expect(res.body.response.department).toMatchObject({ name: 'mock department 1', description: 'test department 1 mock data' });
+        expect(res.body.response.department.id).toBe(1);
       });
   });
 
@@ -63,10 +62,8 @@ describe('Department routes ', () => {
       .send(body)
       .expect(httpStatus.OK)
       .then((res) => {
-        expect(res.body.response.department)
-          .toMatchObject(body);
-        expect(res.body.response.department.id)
-          .toBe(id);
+        expect(res.body.response.department).toMatchObject(body);
+        expect(res.body.response.department.id).toBe(id);
       });
   });
 
@@ -78,8 +75,7 @@ describe('Department routes ', () => {
       .send(body)
       .expect(httpStatus.OK)
       .then((res) => {
-        expect(res.body.response)
-          .toEqual({});
+        expect(res.body.response).toEqual({});
       });
   });
 });
