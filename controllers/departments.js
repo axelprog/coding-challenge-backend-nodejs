@@ -18,9 +18,9 @@ const Department = require('../models/').Department;
  *
  * @apiUse Department
  *
- * @apiSuccess {Number} responseCode     HTTP Response Code
- * @apiSuccess {String} responseMessage  Response message
- * @apiSuccess {Object} response         Response object
+ * @apiSuccess (Success 201) {Number} responseCode     HTTP Response Code
+ * @apiSuccess (Success 201) {String} responseMessage  Response message
+ * @apiSuccess (Success 201) {Object} response         Response object
  *
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
@@ -28,14 +28,15 @@ const Department = require('../models/').Department;
 exports.departmentCreate = async (req, res, next) => {
   try {
     return Department.create(req.body)
-      .then((userInstance) => {
-        res.status(httpStatus.OK);
+      .then((departmentInstance) => {
+        res.status(httpStatus.CREATED);
         return res.json({
-          responseCode: httpStatus.OK,
-          responseMessage: 'OK',
-          response: { department: userInstance.toJSON() }
+          responseCode: httpStatus.CREATED,
+          responseMessage: 'CREATED',
+          response: { department: departmentInstance.toJSON() }
         });
-      }).catch((error) => next(error));
+      })
+      .catch(error => next(error));
   } catch (error) {
     return next(error);
   }
@@ -60,12 +61,16 @@ exports.departmentCreate = async (req, res, next) => {
 
 exports.departmentGet = async (req, res, next) => {
   try {
-    res.status(httpStatus.OK);
-    return res.json({
-      responseCode: httpStatus.OK,
-      responseMessage: 'OK',
-      response: {}
-    });
+    return Department.findById(req.params.id)
+      .then((departmentInstance) => {
+        res.status(httpStatus.OK);
+        return res.json({
+          responseCode: httpStatus.OK,
+          responseMessage: 'OK',
+          response: { department: departmentInstance.toJSON() }
+        });
+      })
+      .catch(error => next(error));
   } catch (error) {
     return next(error);
   }
@@ -90,12 +95,17 @@ exports.departmentGet = async (req, res, next) => {
 
 exports.departmentUpdate = async (req, res, next) => {
   try {
-    res.status(httpStatus.OK);
-    return res.json({
-      responseCode: httpStatus.OK,
-      responseMessage: 'OK',
-      response: {}
-    });
+    return Department.findById(req.params.id)
+      .then((departmentInstance => departmentInstance.update(req.body)))
+      .then((updatedInstance) => {
+        res.status(httpStatus.OK);
+        return res.json({
+          responseCode: httpStatus.OK,
+          responseMessage: 'OK',
+          response: { department: updatedInstance.toJSON() }
+        });
+      })
+      .catch(error => next(error));
   } catch (error) {
     return next(error);
   }
@@ -120,12 +130,16 @@ exports.departmentUpdate = async (req, res, next) => {
 
 exports.departmentDelete = async (req, res, next) => {
   try {
-    res.status(httpStatus.OK);
-    return res.json({
-      responseCode: httpStatus.OK,
-      responseMessage: 'OK',
-      response: {}
-    });
+    return Department.destroy({ where: { id: req.params.id }, force: true })
+      .then(() => {
+        res.status(httpStatus.OK);
+        return res.json({
+          responseCode: httpStatus.OK,
+          responseMessage: 'OK',
+          response: {}
+        });
+      })
+      .catch(error => next(error));
   } catch (error) {
     return next(error);
   }

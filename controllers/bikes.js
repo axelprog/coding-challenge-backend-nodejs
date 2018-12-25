@@ -22,19 +22,19 @@ const httpStatus = require('http-status');
  *
  * @apiUse Bike
  *
- * @apiSuccess {Number} responseCode     HTTP Response Code
- * @apiSuccess {String} responseMessage  Response message
- * @apiSuccess {Object} response         Response object
+ * @apiSuccess (Success 201) {Number} responseCode     HTTP Response Code
+ * @apiSuccess (Success 201) {String} responseMessage  Response message
+ * @apiSuccess (Success 201) {Object} response         Response object
  *
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
 
 exports.bikeCreate = async (req, res, next) => {
   try {
-    res.status(httpStatus.OK);
+    res.status(httpStatus.CREATED);
     return res.json({
-      responseCode: httpStatus.OK,
-      responseMessage: 'OK',
+      responseCode: httpStatus.CREATED,
+      responseMessage: 'CREATED',
       response: {}
     });
   } catch (error) {

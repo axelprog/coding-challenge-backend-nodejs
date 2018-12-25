@@ -1,7 +1,9 @@
 /* eslint-disable arrow-body-style */
 const request = require('supertest');
 const httpStatus = require('http-status');
+
 const app = require('../../app');
+const { initDatabase, cleanDatabase } = require('../testingUtils/dbTestUtil');
 
 const apiPath = '/api/v1/departments';
 
@@ -21,8 +23,10 @@ describe('Department routes ', () => {
         .send(body)
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {
-          expect(res.body.response.errors.length).toBe(1);
-          expect(res.body.response.errors[0].errorAttributes.field[0]).toBe('name');
+          expect(res.body.response.errors.length)
+            .toBe(1);
+          expect(res.body.response.errors[0].errorAttributes.field[0])
+            .toBe('name');
         });
     });
 
@@ -37,11 +41,16 @@ describe('Department routes ', () => {
         .send(body)
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {
-          expect(res.body.response.errors.length).toBe(2);
-          expect(res.body.response.errors[0].errorAttributes.field[0]).toBe('name');
-          expect(res.body.response.errors[0].errorAttributes.types[0]).toBe('string.base');
-          expect(res.body.response.errors[1].errorAttributes.field[0]).toBe('description');
-          expect(res.body.response.errors[1].errorAttributes.types[0]).toBe('string.base');
+          expect(res.body.response.errors.length)
+            .toBe(2);
+          expect(res.body.response.errors[0].errorAttributes.field[0])
+            .toBe('name');
+          expect(res.body.response.errors[0].errorAttributes.types[0])
+            .toBe('string.base');
+          expect(res.body.response.errors[1].errorAttributes.field[0])
+            .toBe('description');
+          expect(res.body.response.errors[1].errorAttributes.types[0])
+            .toBe('string.base');
         });
     });
 
@@ -51,9 +60,12 @@ describe('Department routes ', () => {
         .get(`${apiPath}/${id}`)
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {
-          expect(res.body.response.errors.length).toBe(1);
-          expect(res.body.response.errors[0].errorAttributes.field[0]).toBe('id');
-          expect(res.body.response.errors[0].errorAttributes.types[0]).toBe('number.base');
+          expect(res.body.response.errors.length)
+            .toBe(1);
+          expect(res.body.response.errors[0].errorAttributes.field[0])
+            .toBe('id');
+          expect(res.body.response.errors[0].errorAttributes.types[0])
+            .toBe('number.base');
         });
     });
 
@@ -67,7 +79,8 @@ describe('Department routes ', () => {
         .send(body)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.response.errors).toEqual(undefined);
+          expect(res.body.response.errors)
+            .toEqual(undefined);
         });
     });
 
@@ -84,13 +97,20 @@ describe('Department routes ', () => {
         .send(body)
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {
-          expect(res.body.response.errors.length).toBe(3);
-          expect(res.body.response.errors[0].errorAttributes.field[0]).toBe('name');
-          expect(res.body.response.errors[0].errorAttributes.types[0]).toBe('string.base');
-          expect(res.body.response.errors[1].errorAttributes.field[0]).toBe('description');
-          expect(res.body.response.errors[1].errorAttributes.types[0]).toBe('string.base');
-          expect(res.body.response.errors[2].errorAttributes.field[0]).toBe('id');
-          expect(res.body.response.errors[2].errorAttributes.types[0]).toBe('number.base');
+          expect(res.body.response.errors.length)
+            .toBe(3);
+          expect(res.body.response.errors[0].errorAttributes.field[0])
+            .toBe('name');
+          expect(res.body.response.errors[0].errorAttributes.types[0])
+            .toBe('string.base');
+          expect(res.body.response.errors[1].errorAttributes.field[0])
+            .toBe('description');
+          expect(res.body.response.errors[1].errorAttributes.types[0])
+            .toBe('string.base');
+          expect(res.body.response.errors[2].errorAttributes.field[0])
+            .toBe('id');
+          expect(res.body.response.errors[2].errorAttributes.types[0])
+            .toBe('number.base');
         });
     });
 
@@ -102,14 +122,21 @@ describe('Department routes ', () => {
         .send(body)
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {
-          expect(res.body.response.errors.length).toBe(1);
-          expect(res.body.response.errors[0].errorAttributes.field[0]).toBe('id');
-          expect(res.body.response.errors[0].errorAttributes.types[0]).toBe('number.base');
+          expect(res.body.response.errors.length)
+            .toBe(1);
+          expect(res.body.response.errors[0].errorAttributes.field[0])
+            .toBe('id');
+          expect(res.body.response.errors[0].errorAttributes.types[0])
+            .toBe('number.base');
         });
     });
   });
 
   describe('integration tests', () => {
+    beforeAll(() => initDatabase());
+
+    afterAll(() => cleanDatabase());
+
     test('it should create department', () => {
       body = {
         name: 'NYCPolice',
@@ -119,15 +146,17 @@ describe('Department routes ', () => {
       return request(app)
         .post(`${apiPath}/`)
         .send(body)
-        .expect(httpStatus.OK)
+        .expect(httpStatus.CREATED)
         .then((res) => {
-          expect(res.body.response.department).toMatchObject(body);
-          expect(typeof res.body.response.department.id).toBe('number');
+          expect(res.body.response.department)
+            .toMatchObject(body);
+          expect(typeof res.body.response.department.id)
+            .toBe('number');
         });
     });
 
     test('it should return department', () => {
-      const id = 123;
+      const id = 1;
 
       return request(app)
         .get(`${apiPath}/${id}`)
@@ -143,26 +172,30 @@ describe('Department routes ', () => {
         description: 'base police department'
       };
 
-      const id = '123';
+      const id = 1;
 
       return request(app)
         .put(`${apiPath}/${id}`)
         .send(body)
         .expect(httpStatus.OK)
         .then((res) => {
-          // TODO: fill after done DB integration
+          expect(res.body.response.department)
+            .toMatchObject(body);
+          expect(res.body.response.department.id)
+            .toBe(id);
         });
     });
 
     test('it should delete department', () => {
-      const id = '123';
+      const id = 1;
 
       return request(app)
         .delete(`${apiPath}/${id}`)
         .send(body)
         .expect(httpStatus.OK)
         .then((res) => {
-          // TODO: fill after done DB integration
+          expect(res.body.response)
+            .toEqual({});
         });
     });
   });

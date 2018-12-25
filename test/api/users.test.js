@@ -1,6 +1,7 @@
 /* eslint-disable arrow-body-style */
 const request = require('supertest');
 const httpStatus = require('http-status');
+
 const app = require('../../app');
 
 const apiPath = '/api/v1/users';
@@ -67,7 +68,7 @@ describe('User routes ', () => {
         return request(app)
           .post(`${apiPath}`)
           .send(body)
-          .expect(httpStatus.OK);
+          .expect(httpStatus.CREATED);
       });
 
       test('it should validate role "manager"', () => {
@@ -80,7 +81,7 @@ describe('User routes ', () => {
         return request(app)
           .post(`${apiPath}`)
           .send(body)
-          .expect(httpStatus.OK);
+          .expect(httpStatus.CREATED);
       });
 
       test('it should validate role "police"', () => {
@@ -93,7 +94,7 @@ describe('User routes ', () => {
         return request(app)
           .post(`${apiPath}`)
           .send(body)
-          .expect(httpStatus.OK);
+          .expect(httpStatus.CREATED);
       });
 
       test('it should validate role "user"', () => {
@@ -106,7 +107,7 @@ describe('User routes ', () => {
         return request(app)
           .post(`${apiPath}`)
           .send(body)
-          .expect(httpStatus.OK);
+          .expect(httpStatus.CREATED);
       });
 
       test('it should invalidate role "officer"', () => {
@@ -278,9 +279,8 @@ describe('User routes ', () => {
       return request(app)
         .post(`${apiPath}/`)
         .send(body)
-        .expect(httpStatus.OK)
+        .expect(httpStatus.CREATED)
         .then((res) => {
-          console.log(res);
           // TODO: fill after done DB integration
         });
     });

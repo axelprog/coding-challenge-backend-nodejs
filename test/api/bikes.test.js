@@ -150,7 +150,7 @@ describe('Bike routes ', () => {
       return request(app)
         .post(`${apiPath}/`)
         .send(body)
-        .expect(httpStatus.OK)
+        .expect(httpStatus.CREATED)
         .then((res) => {
           // TODO: fill after done DB integration
         });
