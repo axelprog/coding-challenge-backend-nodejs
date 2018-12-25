@@ -27,16 +27,14 @@ const Department = require('../models/').Department;
 
 exports.departmentCreate = async (req, res, next) => {
   try {
-    return Department.create(req.body)
-      .then((departmentInstance) => {
-        res.status(httpStatus.CREATED);
-        return res.json({
-          responseCode: httpStatus.CREATED,
-          responseMessage: 'CREATED',
-          response: { department: departmentInstance.toJSON() }
-        });
-      })
-      .catch(error => next(error));
+    const departmentInstance = await Department.create(req.body);
+
+    res.status(httpStatus.CREATED);
+    return res.json({
+      responseCode: httpStatus.CREATED,
+      responseMessage: 'CREATED',
+      response: { department: departmentInstance.toJSON() }
+    });
   } catch (error) {
     return next(error);
   }
@@ -61,16 +59,14 @@ exports.departmentCreate = async (req, res, next) => {
 
 exports.departmentGet = async (req, res, next) => {
   try {
-    return Department.findOne({ where: { id: req.params.id } })
-      .then((departmentInstance) => {
-        res.status(httpStatus.OK);
-        return res.json({
-          responseCode: httpStatus.OK,
-          responseMessage: 'OK',
-          response: { department: departmentInstance.toJSON() }
-        });
-      })
-      .catch(error => next(error));
+    const departmentInstance = await Department.findOne({ where: { id: req.params.id } });
+
+    res.status(httpStatus.OK);
+    return res.json({
+      responseCode: httpStatus.OK,
+      responseMessage: 'OK',
+      response: { department: departmentInstance.toJSON() }
+    });
   } catch (error) {
     return next(error);
   }
@@ -95,17 +91,16 @@ exports.departmentGet = async (req, res, next) => {
 
 exports.departmentUpdate = async (req, res, next) => {
   try {
-    return Department.findOne({ where: { id: req.params.id } })
-      .then((departmentInstance => departmentInstance.update(req.body)))
-      .then((updatedInstance) => {
-        res.status(httpStatus.OK);
-        return res.json({
-          responseCode: httpStatus.OK,
-          responseMessage: 'OK',
-          response: { department: updatedInstance.toJSON() }
-        });
-      })
-      .catch(error => next(error));
+    const departmentInstance = await Department.findOne({ where: { id: req.params.id } });
+
+    const updatedInstance = await departmentInstance.update(req.body);
+
+    res.status(httpStatus.OK);
+    return res.json({
+      responseCode: httpStatus.OK,
+      responseMessage: 'OK',
+      response: { department: updatedInstance.toJSON() }
+    });
   } catch (error) {
     return next(error);
   }
@@ -130,16 +125,14 @@ exports.departmentUpdate = async (req, res, next) => {
 
 exports.departmentDelete = async (req, res, next) => {
   try {
-    return Department.destroy({ where: { id: req.params.id }, force: true })
-      .then(() => {
-        res.status(httpStatus.OK);
-        return res.json({
-          responseCode: httpStatus.OK,
-          responseMessage: 'OK',
-          response: {}
-        });
-      })
-      .catch(error => next(error));
+    await Department.destroy({ where: { id: req.params.id }, force: true })
+
+    res.status(httpStatus.OK);
+    return res.json({
+      responseCode: httpStatus.OK,
+      responseMessage: 'OK',
+      response: {}
+    });
   } catch (error) {
     return next(error);
   }

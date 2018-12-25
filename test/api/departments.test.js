@@ -21,35 +21,33 @@ describe('Department routes ', () => {
   afterAll(() => cleanDatabase());
 
 
-  test('it should create department', () => {
+  test('it should create department', async () => {
     body = {
       name: 'NYCPolice',
       description: 'base police department'
     };
 
-    return request(app)
+    const res = await request(app)
       .post(`${apiPath}/`)
       .send(body)
-      .expect(httpStatus.CREATED)
-      .then((res) => {
-        expect(res.body.response.department).toMatchObject(body);
-        expect(typeof res.body.response.department.id).toBe('number');
-      });
+      .expect(httpStatus.CREATED);
+
+    expect(res.body.response.department).toMatchObject(body);
+    expect(typeof res.body.response.department.id).toBe('number');
   });
 
-  test('it should return department', () => {
+  test('it should return department', async () => {
     const id = 1;
 
-    return request(app)
+    const res = await request(app)
       .get(`${apiPath}/${id}`)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        expect(res.body.response.department).toMatchObject({ name: 'mock department 1', description: 'test department 1 mock data' });
-        expect(res.body.response.department.id).toBe(1);
-      });
+      .expect(httpStatus.OK);
+
+    expect(res.body.response.department).toMatchObject({ name: 'mock department 1', description: 'test department 1 mock data' });
+    expect(res.body.response.department.id).toBe(1);
   });
 
-  test('it should update department', () => {
+  test('it should update department', async () => {
     body = {
       name: 'NYCPolice',
       description: 'base police department'
@@ -57,26 +55,24 @@ describe('Department routes ', () => {
 
     const id = 1;
 
-    return request(app)
+    const res = await request(app)
       .put(`${apiPath}/${id}`)
       .send(body)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        expect(res.body.response.department).toMatchObject(body);
-        expect(res.body.response.department.id).toBe(id);
-      });
+      .expect(httpStatus.OK);
+
+    expect(res.body.response.department).toMatchObject(body);
+    expect(res.body.response.department.id).toBe(id);
   });
 
-  test('it should delete department', () => {
+  test('it should delete department', async () => {
     const id = 1;
 
-    return request(app)
+    const res = await request(app)
       .delete(`${apiPath}/${id}`)
       .send(body)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        expect(res.body.response).toEqual({});
-      });
+      .expect(httpStatus.OK);
+
+    expect(res.body.response).toEqual({});
   });
 });
 

@@ -13,7 +13,7 @@ describe('User routes ', () => {
     body = {};
   });
 
-  test('it should create user', () => {
+  test('it should create user', async () => {
     body = {
       firstName: 'tester',
       lastName: 'tested',
@@ -22,27 +22,25 @@ describe('User routes ', () => {
       role: 'police'
     };
 
-    return request(app)
+    const res = await request(app)
       .post(`${apiPath}/`)
       .send(body)
-      .expect(httpStatus.CREATED)
-      .then((res) => {
-        // TODO: fill after done DB integration
-      });
+      .expect(httpStatus.CREATED);
+
+    // TODO: fill after done DB integration
   });
 
-  test('it should return user', () => {
+  test('it should return user', async () => {
     const id = '123';
 
-    return request(app)
+    const res = await request(app)
       .get(`${apiPath}/${id}`)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        // TODO: fill after done DB integration
-      });
+      .expect(httpStatus.OK);
+
+    // TODO: fill after done DB integration
   });
 
-  test('it should update user', () => {
+  test('it should update user', async () => {
     body = {
       firstName: 'tester',
       lastName: 'tested',
@@ -53,25 +51,23 @@ describe('User routes ', () => {
 
     const id = '123';
 
-    return request(app)
+    const res = await request(app)
       .put(`${apiPath}/${id}`)
       .send(body)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        // TODO: fill after done DB integration
-      });
+      .expect(httpStatus.OK);
+
+    // TODO: fill after done DB integration
   });
 
-  test('it should delete user', () => {
+  test('it should delete user', async () => {
     const id = '123';
 
-    return request(app)
+    const res = await request(app)
       .delete(`${apiPath}/${id}`)
       .send(body)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        // TODO: fill after done DB integration
-      });
+      .expect(httpStatus.OK);
+
+    // TODO: fill after done DB integration
   });
 });
 

@@ -12,7 +12,7 @@ describe('Bike routes ', () => {
     body = {};
   });
 
-  test('it should create bike', () => {
+  test('it should create bike', async () => {
     body = {
       license: 'ask294.sdf',
       color: 'yellow',
@@ -22,27 +22,25 @@ describe('Bike routes ', () => {
       found: false
     };
 
-    return request(app)
+    const res = await request(app)
       .post(`${apiPath}/`)
       .send(body)
-      .expect(httpStatus.CREATED)
-      .then((res) => {
-        // TODO: fill after done DB integration
-      });
+      .expect(httpStatus.CREATED);
+
+    // TODO: fill after done DB integration
   });
 
-  test('it should return bike', () => {
+  test('it should return bike', async () => {
     const id = '123';
 
-    return request(app)
+    const res = await request(app)
       .get(`${apiPath}/${id}`)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        // TODO: fill after done DB integration
-      });
+      .expect(httpStatus.OK);
+
+    // TODO: fill after done DB integration
   });
 
-  test('it should update bike', () => {
+  test('it should update bike', async () => {
     body = {
       license: 'ask294.sdf',
       color: 'yellow',
@@ -54,25 +52,23 @@ describe('Bike routes ', () => {
 
     const id = '123';
 
-    return request(app)
+    const res = await request(app)
       .put(`${apiPath}/${id}`)
       .send(body)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        // TODO: fill after done DB integration
-      });
+      .expect(httpStatus.OK);
+
+    // TODO: fill after done DB integration
   });
 
-  test('it should delete bike', () => {
+  test('it should delete bike', async () => {
     const id = '123';
 
-    return request(app)
+    const res = await request(app)
       .delete(`${apiPath}/${id}`)
       .send(body)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        // TODO: fill after done DB integration
-      });
+      .expect(httpStatus.OK);
+
+    // TODO: fill after done DB integration
   });
 });
 

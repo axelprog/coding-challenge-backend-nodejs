@@ -16,16 +16,12 @@ describe('POST /api/v1/bikes', () => {
 
   afterEach(() => {});
 
-  test('should integrate api /bikes', () => {
-    return request(app)
-      .post('/api/v1/bikes')
-      .send(body)
-      .expect(httpStatus.OK)
-      .then((res) => {
-        expect(res.body).toHaveProperty('responseCode');
-        expect(res.body).toHaveProperty('responseMessage');
-        expect(res.body.responseCode).toBe(httpStatus.OK);
-        expect(res.body.responseMessage).toEqual(expect.any(String));
-      });
+  test('should integrate api /bikes', async () => {
+    const res = await request(app);
+
+    expect(res.body).toHaveProperty('responseCode');
+    expect(res.body).toHaveProperty('responseMessage');
+    expect(res.body.responseCode).toBe(httpStatus.OK);
+    expect(res.body.responseMessage).toEqual(expect.any(String));
   });
 });

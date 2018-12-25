@@ -17,7 +17,7 @@ describe('Middleware - monitoringMiddleware', () => {
   afterEach(() => {
   });
 
-  test('should pass request', () => {
+  test('should pass request', async () => {
     app.use((req, res, next) => {
       req.useragent = {
         browser: 'mocha',
@@ -35,13 +35,12 @@ describe('Middleware - monitoringMiddleware', () => {
         .send('OK');
     });
 
-    return request(app)
+    await request(app)
       .get('/health')
       .set('useragent', 'Something')
-      .expect(httpStatus.OK)
-      .then(() => {
-        expect(logger.info)
-          .toBeCalledTimes(1);
-      });
+      .expect(httpStatus.OK);
+
+    expect(logger.info)
+      .toBeCalledTimes(1);
   });
 });
