@@ -9,18 +9,18 @@ exports.initDatabase = async () => {
     ], { updateOnDuplicate: true }),
 
     User.bulkCreate([
-      { firstName: 'John', lastName: 'Smith', email: 'test@test.ai', password: 'qwe123.#@!', role: 'admin' },
-      { firstName: 'Jane', lastName: 'Doe', email: 'wsad@test.ai', password: 'zxc123.#@!', role: 'manager' },
-      { firstName: 'Jack', lastName: 'Wesson', email: 'qwerty@test.ai', password: 'asd123.#@!', role: 'police' },
-      { firstName: 'Tony', lastName: 'Colt', email: 'asdgfg@test.ai', password: 'asd123.#@!', role: 'police' },
-      { firstName: 'James', lastName: 'Hetfield ', email: 'acdc@test.ai', password: 'asd123.#@!', role: 'user' }
+      { id:1, firstName: 'John', lastName: 'Smith', email: 'test@test.ai', password: 'qwe123.#@!', role: 'admin' },
+      { id:2, firstName: 'Jane', lastName: 'Doe', email: 'wsad@test.ai', password: 'zxc123.#@!', role: 'manager' },
+      { id:3, firstName: 'Jack', lastName: 'Wesson', email: 'qwerty@test.ai', password: 'asd123.#@!', role: 'police' },
+      { id:4, firstName: 'Tony', lastName: 'Colt', email: 'asdgfg@test.ai', password: 'asd123.#@!', role: 'police' },
+      { id:5, firstName: 'James', lastName: 'Hetfield ', email: 'acdc@test.ai', password: 'asd123.#@!', role: 'user' }
     ], { updateOnDuplicate: true }),
 
     Bike.bulkCreate([
-      { license: 'ask123.qaxz', color: 'yellow', type: 'star', stealDate: '2017-05-05', thiefDescription: 'old man', found: false },
-      { license: 'qwe456.gdf', color: 'green', type: 'giant', stealDate: '2016-01-12', thiefDescription: 'has scar', found: false },
-      { license: 'zxc23.sfgd', color: 'blue', type: 'hammer', stealDate: '2015-08-07', thiefDescription: 'woman with green hair', found: false },
-      { license: 'wasde12354.ssdf', color: 'pink', type: 'ricoh', stealDate: '2018-11-22', thiefDescription: '-', found: false },
+      { id:1, license: 'ask123.qaxz', color: 'yellow', type: 'star', stealDate: '2017-05-05', thiefDescription: 'old man', found: false },
+      { id:2, license: 'qwe456.gdf', color: 'green', type: 'giant', stealDate: '2016-01-12', thiefDescription: 'has scar', found: false },
+      { id:3, license: 'zxc23.sfgd', color: 'blue', type: 'hammer', stealDate: '2015-08-07', thiefDescription: 'woman with green hair', found: false },
+      { id:4, license: 'wasde12354.ssdf', color: 'pink', type: 'ricoh', stealDate: '2018-11-22', thiefDescription: '-', found: false },
     ], { updateOnDuplicate: true })
   ]);
 

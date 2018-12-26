@@ -3,15 +3,24 @@ const request = require('supertest');
 const httpStatus = require('http-status');
 
 const app = require('../../app');
+const { initDatabase, cleanDatabase } = require('../.testingHelpers/dbTestUtil');
 
 const apiPath = '/api/v1/users';
 
 describe('User routes ', () => {
   let body;
 
-  beforeEach(async () => {
+
+  beforeAll(async () => {
+    initDatabase();
+  });
+
+  beforeEach(() => {
     body = {};
   });
+
+  afterAll(() => cleanDatabase());
+
 
   test('it should create user', async () => {
     body = {

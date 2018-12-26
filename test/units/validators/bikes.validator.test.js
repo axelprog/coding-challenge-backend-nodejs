@@ -18,6 +18,7 @@ describe('Bike validators ', () => {
         stealDate: new Date(),
         thiefDescription: 'strange man',
         found: false,
+        owner: 1
       };
 
       mockValidation(validationRules.bikeCreate, req, (data) => {
@@ -42,6 +43,8 @@ describe('Bike validators ', () => {
         stealDate: new Date(),
         thiefDescription: 'strange man',
         found: false,
+        owner: 1,
+        handle: 1
       };
 
       mockValidation(validationRules.bikeUpdate, req, (data) => {
@@ -84,10 +87,12 @@ describe('Bike validators ', () => {
         stealDate: 'test',
         thiefDescription: 424242,
         found: 'test string',
+        owner: 123.12,
+        handle: '123'
       };
 
       mockValidation(validationRules.bikeCreate, req, (data) => {
-        expect(data.errors.length).toBe(6);
+        expect(data.errors.length).toBe(8);
         expect(data.errors[0].field[0]).toBe('license');
         expect(data.errors[0].types[0]).toBe('string.base');
         expect(data.errors[1].field[0]).toBe('color');
@@ -100,6 +105,10 @@ describe('Bike validators ', () => {
         expect(data.errors[4].types[0]).toBe('string.base');
         expect(data.errors[5].field[0]).toBe('found');
         expect(data.errors[5].types[0]).toBe('boolean.base');
+        expect(data.errors[6].field[0]).toBe('owner');
+        expect(data.errors[6].types[0]).toBe('number.integer');
+        expect(data.errors[7].field[0]).toBe('handle');
+        expect(data.errors[7].types[0]).toBe('any.unknown');
       });
     });
 
@@ -115,18 +124,20 @@ describe('Bike validators ', () => {
 
     test('it should not validate data for update bike', () => {
       req.body = {
-        license: 424242,
-        color: 42.24,
+        license: 42.4242,
+        color: 4224,
         type: true,
         stealDate: 'test',
         thiefDescription: 424242,
         found: 'test string',
+        owner: 12.12,
+        handle: 'asdas'
       };
 
       req.params.id = 'qweqwe';
 
       mockValidation(validationRules.bikeUpdate, req, (data) => {
-        expect(data.errors.length).toBe(7);
+        expect(data.errors.length).toBe(9);
         expect(data.errors[0].field[0]).toBe('license');
         expect(data.errors[0].types[0]).toBe('string.base');
         expect(data.errors[1].field[0]).toBe('color');
@@ -139,8 +150,12 @@ describe('Bike validators ', () => {
         expect(data.errors[4].types[0]).toBe('string.base');
         expect(data.errors[5].field[0]).toBe('found');
         expect(data.errors[5].types[0]).toBe('boolean.base');
-        expect(data.errors[6].field[0]).toBe('id');
-        expect(data.errors[6].types[0]).toBe('number.base');
+        expect(data.errors[6].field[0]).toBe('owner');
+        expect(data.errors[6].types[0]).toBe('number.integer');
+        expect(data.errors[7].field[0]).toBe('handle');
+        expect(data.errors[7].types[0]).toBe('number.base');
+        expect(data.errors[8].field[0]).toBe('id');
+        expect(data.errors[8].types[0]).toBe('number.base');
       });
     });
 

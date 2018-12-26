@@ -4,13 +4,21 @@ const httpStatus = require('http-status');
 const app = require('../../app');
 
 const apiPath = '/api/v1/bikes';
+const { initDatabase, cleanDatabase } = require('../.testingHelpers/dbTestUtil');
 
 describe('Bike routes ', () => {
   let body;
 
   beforeAll(async () => {
+    initDatabase();
+  });
+
+  beforeEach(() => {
     body = {};
   });
+
+  afterAll(() => cleanDatabase());
+
 
   test('it should create bike', async () => {
     body = {
@@ -19,7 +27,8 @@ describe('Bike routes ', () => {
       type: 'star',
       stealDate: '2018-11-22',
       thiefDescription: 'old man',
-      found: false
+      found: false,
+      owner: 1
     };
 
     const res = await request(app)
@@ -27,17 +36,31 @@ describe('Bike routes ', () => {
       .send(body)
       .expect(httpStatus.CREATED);
 
-    // TODO: fill after done DB integration
+    delete body.stealDate;
+
+    expect(res.body.response.bike).toMatchObject(body);
+    expect(typeof res.body.response.bike.id).toBe('number');
+    expect(res.body.response.bike.stealDate).toBe('2018-11-22T00:00:00.000Z');
   });
 
   test('it should return bike', async () => {
-    const id = '123';
+    const id = 3;
 
     const res = await request(app)
       .get(`${apiPath}/${id}`)
       .expect(httpStatus.OK);
 
-    // TODO: fill after done DB integration
+    const compareObj = {
+      license: 'zxc23.sfgd',
+      color: 'blue',
+      type: 'hammer',
+      stealDate: '2015-08-07T00:00:00.000Z',
+      thiefDescription: 'woman with green hair',
+      found: false
+    };
+
+    expect(res.body.response.bike).toMatchObject(compareObj);
+    expect(res.body.response.bike.id).toBe(id);
   });
 
   test('it should update bike', async () => {
@@ -47,28 +70,34 @@ describe('Bike routes ', () => {
       type: 'star',
       stealDate: '2018-11-22',
       thiefDescription: 'old man',
-      found: false
+      found: false,
+      owner: 2,
+      handle: 1
     };
 
-    const id = '123';
+    const id = 1;
 
     const res = await request(app)
       .put(`${apiPath}/${id}`)
       .send(body)
       .expect(httpStatus.OK);
 
-    // TODO: fill after done DB integration
+    delete body.stealDate;
+
+    expect(res.body.response.bike).toMatchObject(body);
+    expect(res.body.response.bike.id).toBe(id);
+    expect(res.body.response.bike.stealDate).toBe('2018-11-22T00:00:00.000Z');
   });
 
   test('it should delete bike', async () => {
-    const id = '123';
+    const id = '1';
 
     const res = await request(app)
       .delete(`${apiPath}/${id}`)
       .send(body)
       .expect(httpStatus.OK);
 
-    // TODO: fill after done DB integration
+    expect(res.body.response).toEqual({});
   });
 });
 

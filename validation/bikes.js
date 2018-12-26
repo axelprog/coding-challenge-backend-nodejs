@@ -9,6 +9,8 @@ exports.bikeCreate = {
     stealDate: Joi.date().required(),
     thiefDescription: Joi.string(),
     found: Joi.boolean(),
+    owner: Joi.number().integer(),
+    handle: Joi.any().forbidden()
   }
 };
 
@@ -31,6 +33,8 @@ exports.bikeUpdate = {
     stealDate: Joi.date(),
     thiefDescription: Joi.string(),
     found: Joi.boolean(),
+    owner: Joi.number().integer(),
+    handle: Joi.number().integer()
   }
 };
 

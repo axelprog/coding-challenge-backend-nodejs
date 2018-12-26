@@ -1,4 +1,5 @@
 const httpStatus = require('http-status');
+const { Bike } = require('../models/');
 
 /**
  * @apiDefine Bike
@@ -31,11 +32,15 @@ const httpStatus = require('http-status');
 
 exports.bikeCreate = async (req, res, next) => {
   try {
+    const bikeInstance = await Bike.create(req.body);
+
+    // TODO: set owner by logged in user
+
     res.status(httpStatus.CREATED);
     return res.json({
       responseCode: httpStatus.CREATED,
       responseMessage: 'CREATED',
-      response: {}
+      response: { bike: bikeInstance.toJSON() }
     });
   } catch (error) {
     return next(error);
@@ -61,11 +66,13 @@ exports.bikeCreate = async (req, res, next) => {
 
 exports.bikeGet = async (req, res, next) => {
   try {
+    const bikeInstance = await Bike.findOne({ where: { id: req.params.id } });
+
     res.status(httpStatus.OK);
     return res.json({
       responseCode: httpStatus.OK,
       responseMessage: 'OK',
-      response: {}
+      response: { bike: bikeInstance.toJSON() }
     });
   } catch (error) {
     return next(error);
@@ -91,11 +98,15 @@ exports.bikeGet = async (req, res, next) => {
 
 exports.bikeUpdate = async (req, res, next) => {
   try {
+    const bikeInstance = await Bike.findOne({ where: { id: req.params.id } });
+
+    const updatedInstance = await bikeInstance.update(req.body);
+
     res.status(httpStatus.OK);
     return res.json({
       responseCode: httpStatus.OK,
       responseMessage: 'OK',
-      response: {}
+      response: { bike: updatedInstance.toJSON() }
     });
   } catch (error) {
     return next(error);
@@ -121,6 +132,8 @@ exports.bikeUpdate = async (req, res, next) => {
 
 exports.bikeDelete = async (req, res, next) => {
   try {
+    await Bike.destroy({ where: { id: req.params.id }, force: true })
+
     res.status(httpStatus.OK);
     return res.json({
       responseCode: httpStatus.OK,

@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
 
-const Department = require('../models/').Department;
+const { Department } = require('../models/');
 
 /**
  * @apiDefine Department

@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     User.hasMany(models.Bike, { foreignKey: 'owner', as: 'stolenBikes' });
     User.hasOne(models.Bike, { foreignKey: 'handle', as: 'seekBike' });
+
+    User.belongsTo(models.Department, { foreignKey: 'department', as: 'work' });
   };
   return User;
 };

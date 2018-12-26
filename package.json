@@ -4,14 +4,16 @@
   "private": true,
   "main": "app.js",
   "jest": {
-    "testRegex": "\\.test\\.js$"
+    "rootDir": "./test",
+    "testRegex": "\\.test\\.js$",
+    "testEnvironment": "node"
   },
   "scripts": {
     "prestart": "npm run docs",
     "start": "node ./bin/start",
     "pretest": "cross-env NODE_ENV=test npm run db:migration:run",
-    "test": "cross-env NODE_ENV=test jest --forceExit --detectOpenHandles",
-    "test:coverage": "cross-env NODE_ENV=test jest --testPathPattern=' --forceExit --detectOpenHandles --coverage --coverageDirectory=coverage",
+    "test": "cross-env NODE_ENV=test jest --forceExit --detectOpenHandles --runInBand",
+    "test:coverage": "cross-env NODE_ENV=test jest --testPathPattern=' --forceExit --detectOpenHandles -- runInBand--coverage --coverageDirectory=coverage",
     "docs": "apidoc -i controllers/ -o apidoc/ && apidoc-markdown2 -p apidoc -o apidoc/api.md",
     "lint": "eslint **/*.js --ignore-path .gitignore --ignore-pattern node_modules/* --ignore-pattern apidoc/*",
     "lint:fix": "npm run lint -- --fix",
