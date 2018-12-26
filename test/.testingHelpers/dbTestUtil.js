@@ -1,6 +1,12 @@
+const Mutex = require('../../utils/mutex');
 const { Department, User, Bike, sequelize } = require('../../models/');
 
+const mutex = new Mutex(); // for lock parallel of tests works with DB
+
 exports.initDatabase = async () => {
+
+  await mutex.lock();
+
   await Promise.all([
     Department.bulkCreate([
       { id: 1, name: 'mock department 1', description: 'test department 1 mock data' },
@@ -38,7 +44,7 @@ exports.initDatabase = async () => {
     users[3].setSeekBike(bikes[1])
   ]);
 
-}
+};
 
 
 exports.cleanDatabase = async () => sequelize.transaction(async (t) => {
@@ -49,4 +55,6 @@ exports.cleanDatabase = async () => sequelize.transaction(async (t) => {
   await sequelize.query('truncate table users', options);
   await sequelize.query('truncate table bikes', options);
   await sequelize.query('SET FOREIGN_KEY_CHECKS = 1', options);
+
+  mutex.release();
 });
