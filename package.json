@@ -12,7 +12,7 @@
     "pretest": "cross-env NODE_ENV=test npm run db:migration:run",
     "test": "cross-env NODE_ENV=test jest --forceExit --detectOpenHandles",
     "test:coverage": "cross-env NODE_ENV=test jest --testPathPattern=' --forceExit --detectOpenHandles --coverage --coverageDirectory=coverage",
-    "docs": "apidoc -i controllers/ -o apidoc/",
+    "docs": "apidoc -i controllers/ -o apidoc/ && apidoc-markdown2 -p apidoc -o apidoc/api.md",
     "lint": "eslint **/*.js --ignore-path .gitignore --ignore-pattern node_modules/* --ignore-pattern apidoc/*",
     "lint:fix": "npm run lint -- --fix",
     "lint:watch": "npm run lint -- --watch",
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "apidoc": "^0.17.7",
+    "apidoc-markdown2": "^0.3.7",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
     "body-parser": "latest",

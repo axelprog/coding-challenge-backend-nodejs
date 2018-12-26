@@ -1,5 +1,7 @@
 Own [N]ode.js-[E]xpress-[S]equilize - boilerplate
 
+Api documentation [available here](/apidoc/api.md)
+
 ## remarks. 
 
 `/api-docs/` - documentation 
