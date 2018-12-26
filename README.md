@@ -1,21 +1,23 @@
-Own [N]ode.js-[E]xpress-[S]equilize - boilerplate
+Implementation of Stolen Bike([description](#description))
 
-Api documentation [available here](/apidoc/api.md)
+Api documentation [available here](/apidoc/api.md) like markdown
+On runned server documentation alailable on `./api-docs/` like html
 
-## remarks. 
+#### ToDo  list
+- [ ] Process not exist associated models for create and edit APIs
+- [ ] Auth & Roles use Passport.js
+- [ ] Set department api + validation (set policeman to dept & set dept to policeman)
+- [ ] Add search to bikes & policeman list (include available for seek)
+- [ ] New bike  automatically assigned to any free policeman
+- [ ] API for handle bike by policeman / manager manually (clear + change)
+- [ ] Bike  automatically assigned to policeman on clear handle
+- [ ] Make sequilize config to get info from env.
+- [ ] Describe mpm scripts using
 
-`/api-docs/` - documentation 
+------------
 
-###todo: write about app
 
-using api-doc
-
-using helmet
-
---------------------
-TODO:
-sequilize make  config to get info from env.
---------------------
+# Description
 
 # Stolen Bike Cases - JOIN Coding Challenge - Backend (Node.js)
 
