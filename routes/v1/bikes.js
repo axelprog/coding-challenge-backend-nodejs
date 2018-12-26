@@ -5,6 +5,10 @@ const validation = require('../../validation/bikes');
 
 const router = express.Router();
 
+// list with pagination
+router.route('/list')
+  .get(validate(validation.bikeGetList), controller.bikeGetList);
+
 // bike CRUD
 router.route('/')
   .post(validate(validation.bikeCreate), controller.bikeCreate);

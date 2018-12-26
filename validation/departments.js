@@ -32,3 +32,12 @@ exports.departmentDelete = {
     id: Joi.number().integer().required()
   }
 };
+
+
+// GET api/v1/departments/list
+exports.departmentGetList = {
+  query: {
+    limit: Joi.number().integer().min(0).required(),
+    page: Joi.number().integer().min(0).required()
+  }
+};

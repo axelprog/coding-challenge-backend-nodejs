@@ -5,6 +5,11 @@ const validation = require('../../validation/users');
 
 const router = express.Router();
 
+// list with pagination
+router.route('/list')
+  .get(validate(validation.userGetList), controller.userGetList);
+
+
 // users CRUD
 router.route('/')
   .post(validate(validation.userCreate), controller.userCreate);

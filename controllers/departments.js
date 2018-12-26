@@ -1,11 +1,19 @@
 const httpStatus = require('http-status');
 
 const { Department } = require('../models/');
+const { debug } = require('../utils/logger');
 
 /**
- * @apiDefine Department
+ * @apiDefine DepartmentDefine
  * @apiParam (Request body) {String} name Department name
  * @apiParam (Request body) {String} description Department description
+ */
+
+/**
+ * @api {OBJECT} Department Department
+ * @apiVersion 1.0.0
+ * @apiGroup .Custom types
+ * @apiUse DepartmentDefine
  */
 
 /**
@@ -16,11 +24,12 @@ const { Department } = require('../models/');
  * @apiGroup Departments
  * @apiPermission public
  *
- * @apiUse Department
+ * @apiUse DepartmentDefine
  *
  * @apiSuccess (Success 201) {Number} responseCode     HTTP Response Code
  * @apiSuccess (Success 201) {String} responseMessage  Response message
  * @apiSuccess (Success 201) {Object} response         Response object
+ * @apiSuccess {[Department](#api-_Custom_types-ObjectDepartment)}  response.department   department
  *
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
@@ -33,9 +42,10 @@ exports.departmentCreate = async (req, res, next) => {
     return res.json({
       responseCode: httpStatus.CREATED,
       responseMessage: 'CREATED',
-      response: { department: departmentInstance.toJSON() }
+      response: { department: departmentInstance }
     });
   } catch (error) {
+    debug('departmentCreate', 'error', error);
     return next(error);
   }
 };
@@ -53,6 +63,7 @@ exports.departmentCreate = async (req, res, next) => {
  * @apiSuccess {Number} responseCode     HTTP Response Code
  * @apiSuccess {String} responseMessage  Response message
  * @apiSuccess {Object} response         Response object
+ * @apiSuccess {[Department](#api-_Custom_types-ObjectDepartment)}  response.department   department
  *
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
@@ -65,9 +76,10 @@ exports.departmentGet = async (req, res, next) => {
     return res.json({
       responseCode: httpStatus.OK,
       responseMessage: 'OK',
-      response: { department: departmentInstance.toJSON() }
+      response: { department: departmentInstance }
     });
   } catch (error) {
+    debug('departmentGet', 'error', error);
     return next(error);
   }
 };
@@ -80,11 +92,12 @@ exports.departmentGet = async (req, res, next) => {
  * @apiGroup Departments
  * @apiPermission public
  *
- * @apiUse Department
+ * @apiUse DepartmentDefine
  *
  * @apiSuccess {Number} responseCode     HTTP Response Code
  * @apiSuccess {String} responseMessage  Response message
  * @apiSuccess {Object} response         Response object
+ * @apiSuccess {[Department](#api-_Custom_types-ObjectDepartment)}  response.department   department
  *
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
@@ -99,9 +112,10 @@ exports.departmentUpdate = async (req, res, next) => {
     return res.json({
       responseCode: httpStatus.OK,
       responseMessage: 'OK',
-      response: { department: updatedInstance.toJSON() }
+      response: { department: updatedInstance }
     });
   } catch (error) {
+    debug('departmentUpdate', 'error', error);
     return next(error);
   }
 };
@@ -134,6 +148,49 @@ exports.departmentDelete = async (req, res, next) => {
       response: {}
     });
   } catch (error) {
+    debug('departmentDelete', 'error', error);
+    return next(error);
+  }
+};
+
+/**
+ * @api {get} api/v1/departments/list?limit=:limit&page=:page Get List
+ * @apiDescription Get list of departments with pagination
+ * @apiVersion 1.0.0
+ * @apiName get list of departments
+ * @apiGroup Departments
+ * @apiPermission public
+ *
+ * @apiParam {Number} limit record count per page
+ * @apiParam {Number} page number of page
+ *
+ * @apiSuccess {Number} responseCode     HTTP Response Code
+ * @apiSuccess {String} responseMessage  Response message
+ * @apiSuccess {Object} response         Response object
+ * @apiSuccess {[Department[]](#_api-Custom_types-ObjectDepartment)} response.departments Response result
+ * @apiSuccess {Number} response.page        Response page
+ * @apiSuccess {Number} response.limit       Used limit
+ * @apiSuccess {Number} response.total       Total users count
+ *
+ * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
+ */
+
+exports.departmentGetList = async (req, res, next) => {
+  try {
+    const limit = req.query.limit;
+    const offset = ((req.query.page - 1) * req.query.limit) || 0;
+
+    const departmentList = await Department.findAll({ limit, offset });
+    const count = await Department.count({ });
+
+    res.status(httpStatus.OK);
+    return res.json({
+      responseCode: httpStatus.OK,
+      responseMessage: 'OK',
+      response: { departments: departmentList, page: req.query.page, limit, total: count }
+    });
+  } catch (error) {
+    debug('departmentGetList', 'error', error);
     return next(error);
   }
 };

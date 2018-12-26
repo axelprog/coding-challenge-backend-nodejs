@@ -1,17 +1,27 @@
 const httpStatus = require('http-status');
+
 const { Bike } = require('../models/');
+const { debug } = require('../utils/logger');
 
 /**
- * @apiDefine Bike
+ * @apiDefine BikeDefine
  * @apiParam (Request body) {String} license Bike license
  * @apiParam (Request body) {String} color Bike color
  * @apiParam (Request body) {String} type Bike type
  * @apiParam (Request body) {Date} stealDate Date of bike stolen
  * @apiParam (Request body) {String} [thiefDescription] Description of thief
  * @apiParam (Request body) {Boolean} [found] Flag of found bike
+ * @apiParam (Request body) {Number} [owner] Id of owner
+ * @apiParam (Request body) {Number} [handle] Id of seeker
 
  */
 
+/**
+ * @api {OBJECT} Bike Bike
+ * @apiVersion 1.0.0
+ * @apiGroup .Custom types
+ * @apiUse DepartmentDefine
+ */
 
 /**
  * @api {post} api/v1/bikes Create
@@ -21,11 +31,12 @@ const { Bike } = require('../models/');
  * @apiGroup Bikes
  * @apiPermission public
  *
- * @apiUse Bike
+ * @apiUse BikeDefine
  *
  * @apiSuccess (Success 201) {Number} responseCode     HTTP Response Code
  * @apiSuccess (Success 201) {String} responseMessage  Response message
  * @apiSuccess (Success 201) {Object} response         Response object
+ * @apiSuccess {[Bike](#api-_Custom_types-ObjectBike)}  response.bike         Bike
  *
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
@@ -40,9 +51,10 @@ exports.bikeCreate = async (req, res, next) => {
     return res.json({
       responseCode: httpStatus.CREATED,
       responseMessage: 'CREATED',
-      response: { bike: bikeInstance.toJSON() }
+      response: { bike: bikeInstance }
     });
   } catch (error) {
+    debug('bikeCreate', 'error', error);
     return next(error);
   }
 };
@@ -60,6 +72,7 @@ exports.bikeCreate = async (req, res, next) => {
  * @apiSuccess {Number} responseCode     HTTP Response Code
  * @apiSuccess {String} responseMessage  Response message
  * @apiSuccess {Object} response         Response object
+ * @apiSuccess {[Bike](#api-_Custom_types-ObjectBike)}  response.bike         Bike
  *
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
@@ -72,9 +85,10 @@ exports.bikeGet = async (req, res, next) => {
     return res.json({
       responseCode: httpStatus.OK,
       responseMessage: 'OK',
-      response: { bike: bikeInstance.toJSON() }
+      response: { bike: bikeInstance }
     });
   } catch (error) {
+    debug('bikeGet', 'error', error);
     return next(error);
   }
 };
@@ -87,11 +101,12 @@ exports.bikeGet = async (req, res, next) => {
  * @apiGroup Bikes
  * @apiPermission public
  *
- * @apiUse Bike
+ * @apiUse BikeDefine
  *
  * @apiSuccess {Number} responseCode     HTTP Response Code
  * @apiSuccess {String} responseMessage  Response message
  * @apiSuccess {Object} response         Response object
+ * @apiSuccess {[Bike](#api-_Custom_types-ObjectBike)}  response.bike         Bike
  *
  * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
  */
@@ -106,9 +121,10 @@ exports.bikeUpdate = async (req, res, next) => {
     return res.json({
       responseCode: httpStatus.OK,
       responseMessage: 'OK',
-      response: { bike: updatedInstance.toJSON() }
+      response: { bike: updatedInstance }
     });
   } catch (error) {
+    debug('bikeUpdate', 'error', error);
     return next(error);
   }
 };
@@ -141,6 +157,50 @@ exports.bikeDelete = async (req, res, next) => {
       response: {}
     });
   } catch (error) {
+    debug('bikeDelete', 'error', error);
+    return next(error);
+  }
+};
+
+
+/**
+ * @api {get} api/v1/bikes/list?limit=:limit&page=:page Get List
+ * @apiDescription Get list of bikes with pagination
+ * @apiVersion 1.0.0
+ * @apiName get list of bikes
+ * @apiGroup Bikes
+ * @apiPermission public
+ *
+ * @apiParam {Number} limit record count per page
+ * @apiParam {Number} page number of page
+ *
+ * @apiSuccess {Number} responseCode     HTTP Response Code
+ * @apiSuccess {String} responseMessage  Response message
+ * @apiSuccess {Object} response         Response object
+ * @apiSuccess {[Department[]](#api-_Custom_types-ObjectBike)} response.bikes       Response result
+ * @apiSuccess {Number} response.page        Response page
+ * @apiSuccess {Number} response.limit       Used limit
+ * @apiSuccess {Number} response.total       Total users count
+ *
+ * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
+ */
+
+exports.bikeGetList = async (req, res, next) => {
+  try {
+    const limit = req.query.limit;
+    const offset = ((req.query.page - 1) * req.query.limit) || 0;
+
+    const departmentList = await Bike.findAll({ limit, offset });
+    const count = await Bike.count({ });
+
+    res.status(httpStatus.OK);
+    return res.json({
+      responseCode: httpStatus.OK,
+      responseMessage: 'OK',
+      response: { bikes: departmentList, page: req.query.page, limit, total: count }
+    });
+  } catch (error) {
+    debug('bikeGetList', 'error', error);
     return next(error);
   }
 };

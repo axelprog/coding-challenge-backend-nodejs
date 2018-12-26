@@ -22,6 +22,13 @@ describe('Department routes ', () => {
     await cleanDatabase();
   });
 
+  test('it should return list of departments', async () => {
+    const res = await request(app)
+      .get(`${apiPath}/list?limit=10&page=1`)
+      .expect(httpStatus.OK);
+
+    expect(res.body.response.departments.length).toBe(3);
+  });
 
   test('it should create department', async () => {
     body = {
@@ -55,7 +62,7 @@ describe('Department routes ', () => {
       description: 'base police department'
     };
 
-    const id = 1;
+    const id = 2;
 
     const res = await request(app)
       .put(`${apiPath}/${id}`)

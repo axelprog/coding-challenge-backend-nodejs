@@ -34,7 +34,7 @@ exports.initDatabase = async () => {
   const users = await User.findAll();
   const bikes = await Bike.findAll();
 
-  return Promise.all([
+  await Promise.all([
     departments[2].setEmployer([users[2], users[3]]),
 
     users[2].setStolenBikes([bikes[0]], bikes[1]),

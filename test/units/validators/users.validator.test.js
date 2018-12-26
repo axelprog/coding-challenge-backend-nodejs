@@ -165,6 +165,17 @@ describe('User validators ', () => {
         });
       });
     });
+
+    test('it should validate get list of users', () => {
+      req.query = {
+        limit: 10,
+        page: 1
+      };
+
+      mockValidation(validationRules.userGetList, req, (data) => {
+        expect(data).toEqual(undefined);
+      });
+    });
   });
 
   describe('incorrect validation', () => {
@@ -251,6 +262,46 @@ describe('User validators ', () => {
         expect(data.errors.length).toBe(1);
         expect(data.errors[0].field[0]).toBe('id');
         expect(data.errors[0].types[0]).toBe('number.base');
+      });
+    });
+
+    test('it should not validate get list of users without query', () => {
+      mockValidation(validationRules.userGetList, req, (data) => {
+        expect(data.errors.length).toBe(2);
+        expect(data.errors[0].field[0]).toBe('limit');
+        expect(data.errors[0].types[0]).toBe('any.required');
+        expect(data.errors[1].field[0]).toBe('page');
+        expect(data.errors[1].types[0]).toBe('any.required');
+      });
+    });
+
+    test('it should not validate get list of users with string query params', () => {
+      req.query = {
+        limit: 'test',
+        page: 'sdf'
+      };
+
+      mockValidation(validationRules.userGetList, req, (data) => {
+        expect(data.errors.length).toBe(2);
+        expect(data.errors[0].field[0]).toBe('limit');
+        expect(data.errors[0].types[0]).toBe('number.base');
+        expect(data.errors[1].field[0]).toBe('page');
+        expect(data.errors[1].types[0]).toBe('number.base');
+      });
+    });
+
+    test('it should not validate get list of users with negative query params', () => {
+      req.query = {
+        limit: -10,
+        page: -1
+      };
+
+      mockValidation(validationRules.userGetList, req, (data) => {
+        expect(data.errors.length).toBe(2);
+        expect(data.errors[0].field[0]).toBe('limit');
+        expect(data.errors[0].types[0]).toBe('number.min');
+        expect(data.errors[1].field[0]).toBe('page');
+        expect(data.errors[1].types[0]).toBe('number.min');
       });
     });
   });

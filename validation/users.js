@@ -42,3 +42,11 @@ exports.userDelete = {
     id: Joi.number().integer().required()
   }
 };
+
+// GET api/v1/users/list
+exports.userGetList = {
+  query: {
+    limit: Joi.number().integer().min(0).required(),
+    page: Joi.number().integer().min(0).required()
+  }
+};

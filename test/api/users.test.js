@@ -23,6 +23,13 @@ describe('User routes ', () => {
     await cleanDatabase();
   });
 
+  test('it should return list of user', async () => {
+    const res = await request(app)
+      .get(`${apiPath}/list?limit=10&page=1`)
+      .expect(httpStatus.OK);
+
+    expect(res.body.response.users.length).toBe(5);
+  });
 
   test('it should create user', async () => {
     body = {
@@ -70,7 +77,7 @@ describe('User routes ', () => {
       role: 'police'
     };
 
-    const id = 4;
+    const id = 3;
 
     const res = await request(app)
       .put(`${apiPath}/${id}`)

@@ -5,6 +5,10 @@ const validation = require('../../validation/departments');
 
 const router = express.Router();
 
+// list with pagination
+router.route('/list')
+  .get(validate(validation.departmentGetList), controller.departmentGetList);
+
 // departments CRUD
 router.route('/')
   .post(validate(validation.departmentCreate), controller.departmentCreate);

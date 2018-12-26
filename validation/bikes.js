@@ -44,3 +44,11 @@ exports.bikeDelete = {
     id: Joi.number().integer().required()
   }
 };
+
+// GET api/v1/bikes/list
+exports.bikeGetList = {
+  query: {
+    limit: Joi.number().integer().min(0).required(),
+    page: Joi.number().integer().min(0).required()
+  }
+};

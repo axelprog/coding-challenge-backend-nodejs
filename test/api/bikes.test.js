@@ -21,6 +21,13 @@ describe('Bike routes ', () => {
     await cleanDatabase();
   });
 
+  test('it should return list of bikes', async () => {
+    const res = await request(app)
+      .get(`${apiPath}/list?limit=10&page=1`)
+      .expect(httpStatus.OK);
+
+    expect(res.body.response.bikes.length).toBe(4);
+  });
 
   test('it should create bike', async () => {
     body = {
@@ -92,7 +99,7 @@ describe('Bike routes ', () => {
   });
 
   test('it should delete bike', async () => {
-    const id = '1';
+    const id = '2';
 
     const res = await request(app)
       .delete(`${apiPath}/${id}`)
