@@ -12,14 +12,16 @@ describe('User routes ', () => {
 
 
   beforeAll(async () => {
-    initDatabase();
+    await initDatabase();
   });
 
   beforeEach(() => {
     body = {};
   });
 
-  afterAll(() => cleanDatabase());
+  afterAll(async () => {
+    await cleanDatabase();
+  });
 
 
   test('it should create user', async () => {
@@ -36,17 +38,27 @@ describe('User routes ', () => {
       .send(body)
       .expect(httpStatus.CREATED);
 
-    // TODO: fill after done DB integration
+    expect(res.body.response.user).toMatchObject(body);
+    expect(typeof res.body.response.user.id).toBe('number');
   });
 
   test('it should return user', async () => {
-    const id = '123';
+    const id = 4;
 
     const res = await request(app)
       .get(`${apiPath}/${id}`)
       .expect(httpStatus.OK);
 
-    // TODO: fill after done DB integration
+    const compareObj = {
+      firstName: 'Tony',
+      lastName: 'Colt',
+      email: 'asdgfg@test.ai',
+      password: 'asd123.#@!',
+      role: 'police'
+    };
+
+    expect(res.body.response.user).toMatchObject(compareObj);
+    expect(res.body.response.user.id).toBe(id);
   });
 
   test('it should update user', async () => {
@@ -58,25 +70,26 @@ describe('User routes ', () => {
       role: 'police'
     };
 
-    const id = '123';
+    const id = 4;
 
     const res = await request(app)
       .put(`${apiPath}/${id}`)
       .send(body)
       .expect(httpStatus.OK);
 
-    // TODO: fill after done DB integration
+    expect(res.body.response.user).toMatchObject(body);
+    expect(res.body.response.user.id).toBe(id);
   });
 
   test('it should delete user', async () => {
-    const id = '123';
+    const id = 1;
 
     const res = await request(app)
       .delete(`${apiPath}/${id}`)
       .send(body)
       .expect(httpStatus.OK);
 
-    // TODO: fill after done DB integration
+    expect(res.body.response).toEqual({});
   });
 });
 

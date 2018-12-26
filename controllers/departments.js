@@ -125,7 +125,7 @@ exports.departmentUpdate = async (req, res, next) => {
 
 exports.departmentDelete = async (req, res, next) => {
   try {
-    await Department.destroy({ where: { id: req.params.id }, force: true })
+    await Department.destroy({ where: { id: req.params.id }, force: true });
 
     res.status(httpStatus.OK);
     return res.json({

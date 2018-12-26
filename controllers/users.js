@@ -1,4 +1,5 @@
 const httpStatus = require('http-status');
+const { User } = require('../models/');
 
 /**
  * @apiDefine User
@@ -28,11 +29,13 @@ const httpStatus = require('http-status');
 
 exports.userCreate = async (req, res, next) => {
   try {
+    const userInstance = await User.create(req.body);
+
     res.status(httpStatus.CREATED);
     return res.json({
       responseCode: httpStatus.CREATED,
       responseMessage: 'CREATED',
-      response: {}
+      response: { user: userInstance.toJSON() }
     });
   } catch (error) {
     return next(error);
@@ -58,11 +61,13 @@ exports.userCreate = async (req, res, next) => {
 
 exports.userGet = async (req, res, next) => {
   try {
+    const userInstance = await User.findOne({ where: { id: req.params.id } });
+
     res.status(httpStatus.OK);
     return res.json({
       responseCode: httpStatus.OK,
       responseMessage: 'OK',
-      response: {}
+      response: { user: userInstance.toJSON() }
     });
   } catch (error) {
     return next(error);
@@ -88,11 +93,15 @@ exports.userGet = async (req, res, next) => {
 
 exports.userUpdate = async (req, res, next) => {
   try {
+    const userInstance = await User.findOne({ where: { id: req.params.id } });
+
+    const updatedInstance = await userInstance.update(req.body);
+
     res.status(httpStatus.OK);
     return res.json({
       responseCode: httpStatus.OK,
       responseMessage: 'OK',
-      response: {}
+      response: { user: updatedInstance.toJSON() }
     });
   } catch (error) {
     return next(error);
@@ -118,6 +127,8 @@ exports.userUpdate = async (req, res, next) => {
 
 exports.userDelete = async (req, res, next) => {
   try {
+    await User.destroy({ where: { id: req.params.id }, force: true });
+
     res.status(httpStatus.OK);
     return res.json({
       responseCode: httpStatus.OK,

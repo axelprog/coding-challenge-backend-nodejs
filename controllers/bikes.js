@@ -132,7 +132,7 @@ exports.bikeUpdate = async (req, res, next) => {
 
 exports.bikeDelete = async (req, res, next) => {
   try {
-    await Bike.destroy({ where: { id: req.params.id }, force: true })
+    await Bike.destroy({ where: { id: req.params.id }, force: true });
 
     res.status(httpStatus.OK);
     return res.json({

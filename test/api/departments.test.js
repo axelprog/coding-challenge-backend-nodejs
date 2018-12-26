@@ -11,14 +11,16 @@ describe('Department routes ', () => {
   let body;
 
   beforeAll(async () => {
-    initDatabase();
+    await initDatabase();
   });
 
   beforeEach(() => {
     body = {};
   });
 
-  afterAll(() => cleanDatabase());
+  afterAll(async () => {
+    await cleanDatabase();
+  });
 
 
   test('it should create department', async () => {
@@ -37,14 +39,14 @@ describe('Department routes ', () => {
   });
 
   test('it should return department', async () => {
-    const id = 1;
+    const id = 3;
 
     const res = await request(app)
       .get(`${apiPath}/${id}`)
       .expect(httpStatus.OK);
 
-    expect(res.body.response.department).toMatchObject({ name: 'mock department 1', description: 'test department 1 mock data' });
-    expect(res.body.response.department.id).toBe(1);
+    expect(res.body.response.department).toMatchObject({ name: 'mock department 3', description: 'test department 3 mock data' });
+    expect(res.body.response.department.id).toBe(3);
   });
 
   test('it should update department', async () => {

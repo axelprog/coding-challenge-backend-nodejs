@@ -16,7 +16,8 @@ describe('User validators ', () => {
         lastName: 'Smith',
         email: 'test@test.ai',
         password: 'qwe123.#@!',
-        role: 'admin'
+        role: 'admin',
+        department: 1
       };
 
       mockValidation(validationRules.userCreate, req, (data) => {
@@ -39,7 +40,8 @@ describe('User validators ', () => {
         lastName: 'Smith',
         email: 'test@test.ai',
         password: 'qwe123.#@!',
-        role: 'admin'
+        role: 'admin',
+        department: 1
       };
 
       mockValidation(validationRules.userUpdate, req, (data) => {
@@ -181,11 +183,12 @@ describe('User validators ', () => {
         lastName: 42.24,
         email: 'test_tset',
         password: 4224,
-        role: 'officer'
+        role: 'officer',
+        department: 'qwe'
       };
 
       mockValidation(validationRules.userCreate, req, (data) => {
-        expect(data.errors.length).toBe(5);
+        expect(data.errors.length).toBe(6);
         expect(data.errors[0].field[0]).toBe('firstName');
         expect(data.errors[0].types[0]).toBe('string.base');
         expect(data.errors[1].field[0]).toBe('lastName');
@@ -196,6 +199,8 @@ describe('User validators ', () => {
         expect(data.errors[3].types[0]).toBe('string.base');
         expect(data.errors[4].field[0]).toBe('role');
         expect(data.errors[4].types[0]).toBe('any.allowOnly');
+        expect(data.errors[5].field[0]).toBe('department');
+        expect(data.errors[5].types[0]).toBe('number.base');
       });
     });
 
@@ -215,13 +220,14 @@ describe('User validators ', () => {
         lastName: 42.24,
         email: 'test_tset',
         password: 4224,
-        role: 'officer'
+        role: 'officer',
+        department: 12.5
       };
 
       req.params.id = 'qweqwe';
 
       mockValidation(validationRules.userUpdate, req, (data) => {
-        expect(data.errors.length).toBe(6);
+        expect(data.errors.length).toBe(7);
         expect(data.errors[0].field[0]).toBe('firstName');
         expect(data.errors[0].types[0]).toBe('string.base');
         expect(data.errors[1].field[0]).toBe('lastName');
@@ -232,8 +238,10 @@ describe('User validators ', () => {
         expect(data.errors[3].types[0]).toBe('string.base');
         expect(data.errors[4].field[0]).toBe('role');
         expect(data.errors[4].types[0]).toBe('any.allowOnly');
-        expect(data.errors[5].field[0]).toBe('id');
-        expect(data.errors[5].types[0]).toBe('number.base');
+        expect(data.errors[5].field[0]).toBe('department');
+        expect(data.errors[5].types[0]).toBe('number.integer');
+        expect(data.errors[6].field[0]).toBe('id');
+        expect(data.errors[6].types[0]).toBe('number.base');
       });
     });
 

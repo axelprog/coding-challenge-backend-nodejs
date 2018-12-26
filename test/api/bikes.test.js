@@ -10,14 +10,16 @@ describe('Bike routes ', () => {
   let body;
 
   beforeAll(async () => {
-    initDatabase();
+    await initDatabase();
   });
 
   beforeEach(() => {
     body = {};
   });
 
-  afterAll(() => cleanDatabase());
+  afterAll(async () => {
+    await cleanDatabase();
+  });
 
 
   test('it should create bike', async () => {
@@ -28,7 +30,7 @@ describe('Bike routes ', () => {
       stealDate: '2018-11-22',
       thiefDescription: 'old man',
       found: false,
-      owner: 1
+      owner: 4
     };
 
     const res = await request(app)

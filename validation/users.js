@@ -9,7 +9,8 @@ exports.userCreate = {
     lastName: Joi.string(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
-    role: Joi.string().valid(Object.values(userRoles)).required()
+    role: Joi.string().valid(Object.values(userRoles)).required(),
+    department: Joi.number().integer()
   }
 };
 
@@ -30,7 +31,8 @@ exports.userUpdate = {
     lastName: Joi.string(),
     email: Joi.string().email(),
     password: Joi.string(),
-    role: Joi.string().valid(Object.values(userRoles))
+    role: Joi.string().valid(Object.values(userRoles)),
+    department: Joi.number().integer()
   }
 };
 
