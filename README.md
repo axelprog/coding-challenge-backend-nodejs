@@ -4,6 +4,7 @@ Api documentation [available here](/apidoc/api.md) like markdown
 On runned server documentation alailable on `./api-docs/` like html
 
 #### ToDo  list
+- [ ] Include  department data into the user / bike response when it needs
 - [ ] Process not exist associated models for create and edit APIs
 - [ ] Auth & Roles use Passport.js
 - [ ] Set department api + validation (set policeman to dept & set dept to policeman)
