@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const userRoles = require('../utils/enums/userRoles').roles;
+const { userRoles } = require('../utils/enums/userRoles');
 
 // POST api/v1/users
 exports.userCreate = {
@@ -9,7 +9,7 @@ exports.userCreate = {
     lastName: Joi.string(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
-    role: Joi.string().valid(Object.values(userRoles)).required(),
+    role: Joi.string().valid(Object.keys(userRoles)).required(),
     department: Joi.number().integer()
   }
 };
@@ -31,7 +31,7 @@ exports.userUpdate = {
     lastName: Joi.string(),
     email: Joi.string().email(),
     password: Joi.string(),
-    role: Joi.string().valid(Object.values(userRoles)),
+    role: Joi.string().valid(Object.keys(userRoles)),
     department: Joi.number().integer()
   }
 };
