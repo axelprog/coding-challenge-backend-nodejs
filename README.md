@@ -14,6 +14,7 @@ On runned server documentation alailable on `./api-docs/` like html
 - [ ] Bike  automatically assigned to policeman on clear handle
 - [ ] Make sequilize config to get info from env.
 - [ ] Describe mpm scripts using
+- [ ] Add pm2 config
 
 ------------
 
