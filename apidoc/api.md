@@ -56,6 +56,7 @@ StolenBikes API documentation
 |  found | Boolean | **optional**<p>Flag of found bike</p>|
 |  owner | Number | **optional**<p>Id of owner</p>|
 |  handle | Number | **optional**<p>Id of seeker</p>|
+|  seeker | <a href="#api-_Custom_types-ObjectUser">User</a> | **optional**<p>Data of seeker</p>|
 
 
 
@@ -182,6 +183,7 @@ StolenBikes API documentation
 |  found | Boolean | **optional**<p>Flag of found bike</p>|
 |  owner | Number | **optional**<p>Id of owner</p>|
 |  handle | Number | **optional**<p>Id of seeker</p>|
+|  seeker | <a href="#api-_Custom_types-ObjectUser">User</a> | **optional**<p>Data of seeker</p>|
 
 
 
@@ -368,6 +370,7 @@ StolenBikes API documentation
 |  password | String | <p>User password</p>|
 |  role | String | <p>Possible user roles</p>_Allowed values: "admin","manager","police","user"_|
 |  department | Number | <p>Id of department where work a policeman</p>|
+|  work | <a href="#api-_Custom_types-ObjectDepartment">Department</a> | <p>Data of department where work a policeman</p>|
 
 
 
@@ -493,6 +496,7 @@ StolenBikes API documentation
 |  password | String | <p>User password</p>|
 |  role | String | <p>Possible user roles</p>_Allowed values: "admin","manager","police","user"_|
 |  department | Number | <p>Id of department where work a policeman</p>|
+|  work | <a href="#api-_Custom_types-ObjectDepartment">Department</a> | <p>Data of department where work a policeman</p>|
 
 
 
@@ -570,6 +574,7 @@ StolenBikes API documentation
 |  password | String | <p>User password</p>|
 |  role | String | <p>Possible user roles</p>_Allowed values: "admin","manager","police","user"_|
 |  department | Number | <p>Id of department where work a policeman</p>|
+|  work | <a href="#api-_Custom_types-ObjectDepartment">Department</a> | <p>Data of department where work a policeman</p>|
 
 
 

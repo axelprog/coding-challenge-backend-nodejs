@@ -13,6 +13,7 @@ const { debug } = require('../utils/logger');
  * @apiParam (Request body) {Boolean} [found] Flag of found bike
  * @apiParam (Request body) {Number} [owner] Id of owner
  * @apiParam (Request body) {Number} [handle] Id of seeker
+ * @apiParam (Request body) {[User](#api-_Custom_types-ObjectUser)} [seeker] Data of seeker
 
  */
 
@@ -79,7 +80,13 @@ exports.bikeCreate = async (req, res, next) => {
 
 exports.bikeGet = async (req, res, next) => {
   try {
-    const bikeInstance = await Bike.findOne({ where: { id: req.params.id } });
+    const bikeInstance = await Bike.findOne({
+      where: { id: req.params.id }, include: [{
+        association: 'seeker',
+        attributes: ['firstName', 'lastName'],
+        include: [{ association: 'work', attributes: ['name', 'description'] }]
+      }]
+    });
 
     res.status(httpStatus.OK);
     return res.json({
@@ -113,7 +120,13 @@ exports.bikeGet = async (req, res, next) => {
 
 exports.bikeUpdate = async (req, res, next) => {
   try {
-    const bikeInstance = await Bike.findOne({ where: { id: req.params.id } });
+    const bikeInstance = await Bike.findOne({
+      where: { id: req.params.id }, include: [{
+        association: 'seeker',
+        attributes: ['firstName', 'lastName'],
+        include: [{ association: 'work', attributes: ['name', 'description'] }]
+      }]
+    });
 
     const updatedInstance = await bikeInstance.update(req.body);
 
@@ -190,7 +203,15 @@ exports.bikeGetList = async (req, res, next) => {
     const limit = req.query.limit;
     const offset = ((req.query.page - 1) * req.query.limit) || 0;
 
-    const departmentList = await Bike.findAll({ limit, offset });
+    const departmentList = await Bike.findAll({
+      limit,
+      offset,
+      include: [{
+        association: 'seeker',
+        attributes: ['firstName', 'lastName'],
+        include: [{ association: 'work', attributes: ['name', 'description'] }]
+      }]
+    });
     const count = await Bike.count({ });
 
     res.status(httpStatus.OK);

@@ -11,6 +11,7 @@ const { debug } = require('../utils/logger');
  * @apiParam (Request body) {String} password User password
  * @apiParam (Request body) {String="admin","manager","police","user"} role Possible user roles
  * @apiParam (Request body) {Number} department Id of department where work a policeman
+ * @apiParam (Request body) {[Department](#api-_Custom_types-ObjectDepartment)} work Data of department where work a policeman
  */
 
 /**
@@ -75,7 +76,10 @@ exports.userCreate = async (req, res, next) => {
 
 exports.userGet = async (req, res, next) => {
   try {
-    const userInstance = await User.findOne({ where: { id: req.params.id } });
+    const userInstance = await User.findOne({
+      where: { id: req.params.id },
+      include: [{ association: 'work', attributes: ['name', 'description'] }]
+    });
 
     res.status(httpStatus.OK);
     return res.json({
@@ -109,7 +113,10 @@ exports.userGet = async (req, res, next) => {
 
 exports.userUpdate = async (req, res, next) => {
   try {
-    const userInstance = await User.findOne({ where: { id: req.params.id } });
+    const userInstance = await User.findOne({
+      where: { id: req.params.id },
+      include: [{ association: 'work', attributes: ['name', 'description'] }]
+    });
 
     const updatedInstance = await userInstance.update(req.body);
 
@@ -186,7 +193,11 @@ exports.userGetList = async (req, res, next) => {
     const limit = req.query.limit;
     const offset = ((req.query.page - 1) * req.query.limit) || 0;
 
-    const userList = await User.findAll({ limit, offset });
+    const userList = await User.findAll({
+      limit,
+      offset,
+      include: [{ association: 'work', attributes: ['name', 'description'] }]
+    });
     const count = await User.count({ });
 
     res.status(httpStatus.OK);

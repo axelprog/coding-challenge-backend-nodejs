@@ -120,6 +120,13 @@ define({ "api": [
             "optional": true,
             "field": "handle",
             "description": "<p>Id of seeker</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "<a href=\"#api-_Custom_types-ObjectUser\">User</a>",
+            "optional": true,
+            "field": "seeker",
+            "description": "<p>Data of seeker</p>"
           }
         ]
       }
@@ -490,6 +497,13 @@ define({ "api": [
             "optional": true,
             "field": "handle",
             "description": "<p>Id of seeker</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "<a href=\"#api-_Custom_types-ObjectUser\">User</a>",
+            "optional": true,
+            "field": "seeker",
+            "description": "<p>Data of seeker</p>"
           }
         ]
       }
@@ -1027,6 +1041,13 @@ define({ "api": [
             "optional": false,
             "field": "department",
             "description": "<p>Id of department where work a policeman</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "<a href=\"#api-_Custom_types-ObjectDepartment\">Department</a>",
+            "optional": false,
+            "field": "work",
+            "description": "<p>Data of department where work a policeman</p>"
           }
         ]
       }
@@ -1389,6 +1410,13 @@ define({ "api": [
             "optional": false,
             "field": "department",
             "description": "<p>Id of department where work a policeman</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "<a href=\"#api-_Custom_types-ObjectDepartment\">Department</a>",
+            "optional": false,
+            "field": "work",
+            "description": "<p>Data of department where work a policeman</p>"
           }
         ]
       }
@@ -1513,6 +1541,13 @@ define({ "api": [
             "optional": false,
             "field": "department",
             "description": "<p>Id of department where work a policeman</p>"
+          },
+          {
+            "group": "Request body",
+            "type": "<a href=\"#api-_Custom_types-ObjectDepartment\">Department</a>",
+            "optional": false,
+            "field": "work",
+            "description": "<p>Data of department where work a policeman</p>"
           }
         ]
       }
